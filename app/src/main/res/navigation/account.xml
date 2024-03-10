@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/account"
+    app:startDestination="@id/myAccountFragment">
+    <fragment
+        android:id="@+id/myAccountFragment"
+        android:name="com.example.coffeelove.account.MyAccountFragment"
+        android:label="myAccountFragment"
+        tools:layout="@layout/fragment_my_account" />
+</navigation>

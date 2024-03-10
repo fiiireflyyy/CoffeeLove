@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_map"
+        android:id="@id/map"
         android:icon="@drawable/baseline_menu_book_24"
         android:title="@string/map" />
 
     <item
-        android:id="@+id/navigation_coffee"
+        android:id="@+id/coffee"
         android:icon="@drawable/baseline_analytics_24"
         android:title="@string/coffee" />
 
     <item
-        android:id="@+id/navigation_account"
+        android:id="@+id/account"
         android:icon="@drawable/baseline_account_circle_24"
         android:title="@string/account" />
 

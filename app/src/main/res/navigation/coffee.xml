@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coffee"
+    app:startDestination="@id/coffeeFragment">
+
+    <fragment
+        android:id="@+id/coffeeFragment"
+        android:name="com.example.coffeelove.coffee.CoffeeFragment"
+        android:label="fragment_coffee"
+        tools:layout="@layout/fragment_coffee" >
+        <action
+            android:id="@+id/action_coffeeFragment_to_coffeePostAboutFragment2"
+            app:destination="@id/coffeePostAboutFragment2" />
+        <action
+            android:id="@+id/action_coffeeFragment_to_accountFragment"
+            app:destination="@id/accountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/coffeePostAboutFragment2"
+        android:name="com.example.coffeelove.coffee.CoffeePostAboutFragment"
+        android:label="CoffeePostAboutFragment"
+        tools:layout="@layout/fragment_coffee_post_about"/>
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.coffeelove.account.AccountFragment"
+        android:label="AccountFragment"
+        tools:layout="@layout/fragment_account"/>
+</navigation>

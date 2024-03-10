@@ -1,4 +1,4 @@
-package com.example.coffeelove.map
+package com.example.coffeelove.login
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -6,26 +6,31 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.coffeelove.R
-import com.example.coffeelove.databinding.FragmentMapBinding
+import com.example.coffeelove.databinding.FragmentLoginBinding
 
-class MapFragment : Fragment() {
+class LoginFragment : Fragment() {
 
-    private var _binding : FragmentMapBinding?=null
-    private val mBinding get()=_binding!!
 
+
+    private var _binding:FragmentLoginBinding?=null
+    val mBinding get()=_binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding=FragmentMapBinding.inflate(inflater,container, false)
+        _binding=FragmentLoginBinding.inflate(inflater,container,false)
 
+        mBinding.btnLogin.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
+        }
         return mBinding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding=null
-    }
 
+    }
 }

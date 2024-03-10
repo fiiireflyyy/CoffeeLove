@@ -1,7 +1,7 @@
-package com.example.coffeelove
+package com.example.coffeelove.login
 
 import androidx.lifecycle.ViewModel
 
-class AccountViewModel : ViewModel() {
+class LoginViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }

@@ -2,30 +2,44 @@ package com.example.coffeelove.coffee
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.get
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeelove.databinding.FragmentCoffeeBinding
 
 class CoffeeFragment : Fragment() {
 
     private var _binding:FragmentCoffeeBinding?=null
 
-    private val binding get()=_binding!!
-
-    private lateinit var viewModel:CoffeeViewModel
-
+    private val mBinding get()=_binding!!
+    private val viewModel: CoffeeViewModel by activityViewModels<CoffeeViewModel>()
+    private lateinit var recyclerAdapter: RecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        val homeViewModel:CoffeeViewModel=ViewModelProvider(this)[CoffeeViewModel::class.java]
         _binding=FragmentCoffeeBinding.inflate(inflater,container,false)
 
-        return _binding!!.root
+        recyclerAdapter= RecyclerAdapter()
+        mBinding.recyclerCoffeePost.layoutManager=LinearLayoutManager(context)
+        mBinding.recyclerCoffeePost.adapter=recyclerAdapter
+
+//        viewModel.listLiveData.observe(
+//            viewLifecycleOwner){
+//            array->recyclerAdapter.notesList=array
+//            Log.d("paramparam", array.toString())
+//        }
+        recyclerAdapter.notesList= viewModel.getListLiveData()!!
+
+
+        return mBinding.root
     }
 
     override fun onDestroyView() {

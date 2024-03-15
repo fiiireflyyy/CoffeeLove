@@ -69,7 +69,7 @@
         app:layout_constraintTop_toBottomOf="@+id/user_info" />
 
     <TextView
-        android:id="@+id/place_name"
+        android:id="@+id/recipe_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -81,7 +81,7 @@
         app:layout_constraintTop_toBottomOf="@+id/coffe_recipe_pic"/>
 
     <TextView
-        android:id="@+id/place_info"
+        android:id="@+id/recipe_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -89,7 +89,7 @@
         android:maxLength="80"
         android:text="Рецепт приготовления кофе гляссе в домашних условиях"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@+id/place_name"/>
+        app:layout_constraintTop_toBottomOf="@+id/recipe_name"/>
 
 
     <ImageButton
@@ -102,12 +102,14 @@
         android:src="@drawable/favorite_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/place_info" />
+        app:layout_constraintTop_toBottomOf="@+id/recipe_description" />
 
     <TextView
+        android:id="@+id/countLike"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1337"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageButton"
         app:layout_constraintStart_toStartOf="@+id/imageButton"
         app:layout_constraintTop_toBottomOf="@+id/imageButton" />

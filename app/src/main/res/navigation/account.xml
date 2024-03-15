@@ -8,5 +8,18 @@
         android:id="@+id/myAccountFragment"
         android:name="com.example.coffeelove.account.MyAccountFragment"
         android:label="myAccountFragment"
-        tools:layout="@layout/fragment_my_account" />
+        tools:layout="@layout/fragment_my_account" >
+        <action
+            android:id="@+id/action_myAccountFragment_to_createPostFragment"
+            app:destination="@id/createPostFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createPostFragment"
+        android:name="com.example.coffeelove.coffee.CreatePostFragment"
+        android:label="fragment_create_post"
+        tools:layout="@layout/fragment_create_post" >
+        <action
+            android:id="@+id/action_createPostFragment_to_myAccountFragment"
+            app:destination="@id/myAccountFragment" />
+    </fragment>
 </navigation>

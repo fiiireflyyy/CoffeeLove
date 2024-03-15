@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".account.MyAccountFragment"
-    android:background="@drawable/coffee_bg">
+    android:background="@color/milky">
     <LinearLayout
         android:id="@+id/user_info"
         android:layout_width="match_parent"
@@ -56,12 +56,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/coffee_icon"
-        app:tabMode="fixed">
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/dark_brown"
+        app:tabIndicatorColor="@color/dark_brown"
 
+        >
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Мои посты" />
+            android:text="Мои посты"/>
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -92,11 +95,25 @@
         tools:layout_editor_absoluteX="10dp" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_my_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         app:layout_constraintTop_toBottomOf="@+id/search_view"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="0dp"
+        android:paddingBottom="300dp"/>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_create_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/profile_tabs"
+        app:layout_constraintTop_toBottomOf="@+id/profile_tabs"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

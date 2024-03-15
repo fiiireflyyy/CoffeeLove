@@ -14,8 +14,6 @@ class CoffeePostAboutFragment : Fragment() {
         fun newInstance() = CoffeePostAboutFragment()
     }
 
-    private lateinit var viewModel: CoffeePostAboutViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -23,10 +21,6 @@ class CoffeePostAboutFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_coffee_post_about, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CoffeePostAboutViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+
 
 }

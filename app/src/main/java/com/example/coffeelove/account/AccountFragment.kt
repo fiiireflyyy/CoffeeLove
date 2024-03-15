@@ -10,11 +10,8 @@ import com.example.coffeelove.R
 
 class AccountFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = AccountFragment()
-    }
 
-    private lateinit var viewModel: AccountViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,10 +20,8 @@ class AccountFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_account, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onDestroyView() {
+        super.onDestroyView()
     }
 
 }

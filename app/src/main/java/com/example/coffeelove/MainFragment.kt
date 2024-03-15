@@ -16,7 +16,7 @@ class MainFragment : Fragment() {
 
 
     private var _binding: FragmentMainBinding?=null
-    val mBinding get()=_binding!!
+    private val mBinding get()=_binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,8 +28,10 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val navController  =(childFragmentManager.findFragmentById(R.id.main_nav_container) as NavHostFragment).navController
-        NavigationUI.setupWithNavController(view.findViewById(R.id.bottom_navigation_view) as NavigationBarView, navController)
+        val navController  =(childFragmentManager.findFragmentById(R.id.main_nav_container)
+                as NavHostFragment).navController
+        NavigationUI.setupWithNavController(view.findViewById(R.id.bottom_navigation_view)
+                as NavigationBarView, navController)
     }
 
     override fun onDestroyView() {

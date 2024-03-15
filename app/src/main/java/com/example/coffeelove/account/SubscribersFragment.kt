@@ -14,8 +14,6 @@ class SubscribersFragment : Fragment() {
         fun newInstance() = SubscribersFragment()
     }
 
-    private lateinit var viewModel: SubcribersViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -23,10 +21,6 @@ class SubscribersFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_community, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SubcribersViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+
 
 }

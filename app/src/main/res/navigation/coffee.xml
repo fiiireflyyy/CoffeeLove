@@ -11,14 +11,14 @@
         android:label="fragment_coffee"
         tools:layout="@layout/fragment_coffee" >
         <action
-            android:id="@+id/action_coffeeFragment_to_coffeePostAboutFragment2"
-            app:destination="@id/coffeePostAboutFragment2" />
+            android:id="@+id/action_coffeeFragment_to_coffeePostAboutFragment"
+            app:destination="@id/coffeePostAboutFragment" />
         <action
             android:id="@+id/action_coffeeFragment_to_accountFragment"
             app:destination="@id/accountFragment" />
     </fragment>
     <fragment
-        android:id="@+id/coffeePostAboutFragment2"
+        android:id="@+id/coffeePostAboutFragment"
         android:name="com.example.coffeelove.coffee.CoffeePostAboutFragment"
         android:label="CoffeePostAboutFragment"
         tools:layout="@layout/fragment_coffee_post_about"/>

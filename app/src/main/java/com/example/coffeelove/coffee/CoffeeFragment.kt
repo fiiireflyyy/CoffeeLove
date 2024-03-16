@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.get
@@ -27,20 +28,25 @@ class CoffeeFragment : Fragment() {
     ): View? {
         _binding=FragmentCoffeeBinding.inflate(inflater,container,false)
 
-        recyclerAdapter= RecyclerAdapter()
+        recyclerAdapter= RecyclerAdapter(this, viewModel)
         mBinding.recyclerCoffeePost.layoutManager=LinearLayoutManager(context)
         mBinding.recyclerCoffeePost.adapter=recyclerAdapter
+        //ЗАПРОС ДАННЫХ ДАННЫХ ИЗ РЕПОЗИТОРИЯ НА МОМЕНТ СОЗДАНИЯ ФРАГМЕНТА
+        recyclerAdapter.notesList=viewModel.getListLiveData()!!
 
+//        СЛУШАТЕЛЬ ДАННЫХ И ЛОГИКА ДЕЙСТВИЙ ПРИ УВЕДОМЛЕНИИ ОБ ИЗМЕНЕНИИ
 //        viewModel.listLiveData.observe(
 //            viewLifecycleOwner){
 //            array->recyclerAdapter.notesList=array
 //            Log.d("paramparam", array.toString())
 //        }
-        recyclerAdapter.notesList= viewModel.getListLiveData()!!
 
 
         return mBinding.root
     }
+
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

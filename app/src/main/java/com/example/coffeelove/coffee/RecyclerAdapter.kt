@@ -6,11 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeelove.R
+import com.example.coffeelove.databinding.CoffeePostBinding
 
-class RecyclerAdapter():RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class RecyclerAdapter(
+    private val fragment:CoffeeFragment,
+    private val viewModel:CoffeeViewModel):RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     var notesList = listOf<CoffeePost>()
         set(value) {
@@ -35,10 +39,22 @@ class RecyclerAdapter():RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.onBind(notesList[position])
+        holder.mBinding.recipeDescription.setOnClickListener {
+            fragment.findNavController().navigate(R.id.action_coffeeFragment_to_coffeePostAboutFragment)
+        }
+
     }
 
 
     class ViewHolder(item: View):RecyclerView.ViewHolder(item){
+
+        private var _binding:CoffeePostBinding
+        val mBinding get()=_binding
+
+        init {
+            _binding=CoffeePostBinding.bind(item)
+        }
+
 
         private  val recipeName=item.findViewById<TextView>(R.id.recipe_name)
         private val recipeDescription=item.findViewById<TextView>(R.id.recipe_description)

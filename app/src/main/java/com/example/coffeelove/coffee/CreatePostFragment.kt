@@ -34,11 +34,15 @@ class CreatePostFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val coffeeViewModel=ViewModelProvider(requireActivity())[CoffeeViewModel::class.java]
 
+
+
+
         mBinding.buttonCreatePost.setOnClickListener {
             val id=coffeeViewModel.listLiveData.value?.size ?:0
             val recipeName= mBinding.nameField.editText?.text.toString()
+
             val recipeDescription=mBinding.descriptionField.editText?.text.toString()
-            coffeeViewModel.refresh(id, recipeName,recipeDescription)
+//          coffeeViewModel.refresh(id, recipeName,recipeDescription)
             coffeeViewModel.createPost(id,recipeName,recipeDescription)
             Toast.makeText(context,"Создана",Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_createPostFragment_to_myAccountFragment)

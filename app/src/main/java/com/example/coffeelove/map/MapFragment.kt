@@ -6,12 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.example.coffeelove.R
+import com.example.coffeelove.coffee.CoffeeViewModel
 import com.example.coffeelove.databinding.FragmentMapBinding
 
 class MapFragment : Fragment() {
 
     private var _binding : FragmentMapBinding?=null
+    private val viewModel: CoffeeViewModel by activityViewModels<CoffeeViewModel>()
     private val mBinding get()=_binding!!
 
     override fun onCreateView(
@@ -19,7 +22,7 @@ class MapFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding=FragmentMapBinding.inflate(inflater,container, false)
-
+        viewModel.addBackGroundUppLoad()
         return mBinding.root
     }
 

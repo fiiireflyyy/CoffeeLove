@@ -10,8 +10,6 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.coffeelove.R
 import com.example.coffeelove.databinding.FragmentCreatePostBinding
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 class CreatePostFragment : Fragment() {
 
@@ -38,11 +36,10 @@ class CreatePostFragment : Fragment() {
 
 
         mBinding.buttonCreatePost.setOnClickListener {
-            val id=coffeeViewModel.listLiveData.value?.size ?:0
             val recipeName= mBinding.nameField.editText?.text.toString()
 
             val recipeDescription=mBinding.descriptionField.editText?.text.toString()
-//          coffeeViewModel.refresh(id, recipeName,recipeDescription)
+            val id=coffeeViewModel.getId()
             coffeeViewModel.createPost(id,recipeName,recipeDescription)
             Toast.makeText(context,"Создана",Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_createPostFragment_to_myAccountFragment)

@@ -31,23 +31,18 @@ class MyAccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding=FragmentMyAccountBinding.inflate(inflater, container, false)
-
         myRecyclerAdapter= MyPostAdapter()
         mBinding.recyclerMyAccount.layoutManager=LinearLayoutManager(context)
         mBinding.recyclerMyAccount.adapter=myRecyclerAdapter
-
-        viewModel.listLiveData.observe(
-            viewLifecycleOwner){
-                array->myRecyclerAdapter.myPostList=array
-            Log.d("paramparam", array.toString())
-        }
-
+        myRecyclerAdapter.myPostList=viewModel.getMyPost()
 
         return mBinding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        myRecyclerAdapter.myPostList=viewModel.getMyPost()
         mBinding.buttonCreatePost.setOnClickListener {
             findNavController().navigate(R.id.action_myAccountFragment_to_createPostFragment)
         }

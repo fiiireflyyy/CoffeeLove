@@ -11,16 +11,26 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.getValue
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class Repository {
 
     //Хранение всех постов, закаченных с бд для передачи в ленту
     val llistLiveData: MutableLiveData<ArrayList<CoffeePost>> by lazy { MutableLiveData<ArrayList<CoffeePost>>()}
     private val database=Firebase.database.reference
-    private val firebaseRef=FirebaseDatabase.getInstance().getReference("posts")
+    //Ссылка на все посты
+    private val firebaseRefPosts=FirebaseDatabase.getInstance().getReference("posts")
 
-    //Есть ли слушатель на обновление ленты постов
-//    private var checkAddListener=false
+    //Ссылка на пользователя
+    private val userRef=database.child("Users").child("TestUser")
+
+    private var countMyPost:Int=10000
+
+
+    //Массив моих постов
+    private val myPost=ArrayList<CoffeePost>()
 
     init {
         llistLiveData.value=ArrayList<CoffeePost>()
@@ -29,9 +39,10 @@ class Repository {
 
     //Установка слушателя для фоновой подкачки
     fun backGroundLoadAllPosts(){
-            firebaseRef.addValueEventListener(object :ValueEventListener{
+            firebaseRefPosts.addValueEventListener(object :ValueEventListener{
 
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    llistLiveData.value?.clear()
                     Log.d("FENIXX","Фоновые изменения")
                     if (snapshot.exists()){
                         for(postsCoffee in snapshot.children){
@@ -49,41 +60,69 @@ class Repository {
         }
 
 
-    //Нужно было для теста
-    fun upLoadAllPosts(listLiveData: MutableLiveData<ArrayList<CoffeePost>>){
-        firebaseRef.addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-//                postsLists.clear()
-                var copyListLiveData=listLiveData.value
-                copyListLiveData=ArrayList<CoffeePost>()
-                if(snapshot.exists()){
-                    for(postsCoffee in snapshot.children){
-                        val coffeePosts=postsCoffee.getValue(CoffeePost::class.java)
-                        copyListLiveData.add(coffeePosts!!)
-                        Log.d("COFFEEPOST",coffeePosts!!.id.toString())
-//                        postsLists.add(coffeePosts!!)
-                        listLiveData.postValue(copyListLiveData)
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.d("PRON", "Ошибка загрузки")
-            }
-        })
-    }
 
     //Функция отправления поста в базу данных
     fun createPost(
-        id: Int,
+        id: Long,
         userNickName:String,
         countLike:Long,
         recipeName:String,
         recipeDescription:String){
 
         val coffeePost=CoffeePost(id,userNickName,countLike, recipeName,recipeDescription)
+        myPost.add(coffeePost)
+        Firebase.database.getReference("Users/$userNickName/MyPost/post${myPost.size}").setValue(id)
+        Firebase.database.getReference("Users/$userNickName/countPost").setValue(myPost.size.toString())
+//        database.child("Users").child(userNickName).child("MyPost").child("post${myPost.size}").setValue(id)
         database.child("posts").child(id.toString()).setValue(coffeePost)
     }
+
+
+    fun getCountMyPost(){
+        userRef.child("countPost").get().addOnSuccessListener {
+            countMyPost=it.getValue(Int::class.java)!!
+        }
+    }
+
+
+//Функция получения моих постов из базы
+    fun getMyPostFromBase(){
+        var idValue:Long=10
+        var idMyPostRef:DatabaseReference
+        myPost.clear()
+
+        for (i in  1..countMyPost){
+            Log.d("FENIXXX","post$i")
+            idMyPostRef=userRef.child("MyPost").child("post$i")
+
+            idMyPostRef.get().addOnSuccessListener {snapshot->
+                idValue= snapshot.getValue(Long::class.java)!!
+                database.child("posts").child(idValue.toString()).get().addOnSuccessListener {
+                    myPost.add(it.getValue(CoffeePost::class.java)!!)
+                }
+                Log.d("FENIXXX",idValue.toString())
+                Log.d("FENIXXX",myPost.isEmpty().toString())
+            }
+
+        }
+
+    }
+
+
+
+    //Функция выдачи списка постов
+    fun getMyPostList(): ArrayList<CoffeePost> {
+        return myPost
+    }
+
+    fun getGenerateId(): Long {
+        val sdf=SimpleDateFormat("yyyMMddHHmmss")
+        val id=sdf.format(Date())
+        Log.d("FENIXXX",id)
+        return id.toLong()
+    }
+
+
 
 
 }

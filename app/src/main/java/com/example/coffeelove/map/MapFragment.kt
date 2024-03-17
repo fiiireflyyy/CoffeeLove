@@ -22,7 +22,9 @@ class MapFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding=FragmentMapBinding.inflate(inflater,container, false)
+        //Перенести вызов в сплеш
         viewModel.addBackGroundUppLoad()
+        viewModel.getMyPostFromBase()
         return mBinding.root
     }
 

@@ -1,6 +1,7 @@
 package com.example.coffeelove.coffee
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.coffeelove.data.repository.Repository
 import com.example.coffeelove.databinding.CoffeePostBinding
@@ -57,6 +58,17 @@ class CoffeeViewModel : ViewModel() {
 
     fun getId(): Long {
         return repository.getGenerateId()
+    }
+
+
+    //Функционал просмотра профиля другого пользователя
+
+    fun downLoadOpenUser(userName: String){
+        repository.getInformationAboutUser(userName)
+    }
+
+    fun getLiveDataOpenUser(): MutableLiveData<ArrayList<CoffeePost>> {
+        return repository.getLiveDataOpenUser()
     }
 
 

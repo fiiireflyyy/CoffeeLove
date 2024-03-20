@@ -33,8 +33,6 @@ class CreatePostFragment : Fragment() {
         val coffeeViewModel=ViewModelProvider(requireActivity())[CoffeeViewModel::class.java]
 
 
-
-
         mBinding.buttonCreatePost.setOnClickListener {
             val recipeName= mBinding.nameField.editText?.text.toString()
 

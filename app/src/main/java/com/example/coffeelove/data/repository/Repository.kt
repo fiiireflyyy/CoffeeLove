@@ -32,6 +32,10 @@ class Repository {
     //Массив моих постов
     private val myPost=ArrayList<CoffeePost>()
 
+    //Массив постов открытого пользователя
+    val openUserPosts: MutableLiveData<ArrayList<CoffeePost>> by lazy { MutableLiveData<ArrayList<CoffeePost>>()}
+//    private val openUserPosts=ArrayList<CoffeePost>()
+
     init {
         llistLiveData.value=ArrayList<CoffeePost>()
     }
@@ -72,7 +76,7 @@ class Repository {
         val coffeePost=CoffeePost(id,userNickName,countLike, recipeName,recipeDescription)
         myPost.add(coffeePost)
         Firebase.database.getReference("Users/$userNickName/MyPost/post${myPost.size}").setValue(id)
-        Firebase.database.getReference("Users/$userNickName/countPost").setValue(myPost.size.toString())
+        Firebase.database.getReference("Users/$userNickName/countPost").setValue(myPost.size)
 //        database.child("Users").child(userNickName).child("MyPost").child("post${myPost.size}").setValue(id)
         database.child("posts").child(id.toString()).setValue(coffeePost)
     }
@@ -121,6 +125,28 @@ class Repository {
         Log.d("FENIXXX",id)
         return id.toLong()
     }
+
+
+    //Запрос информации о юзере.
+    fun getInformationAboutUser(namePath:String){
+        Log.d("FENIXXX",namePath)
+        val openUserList=ArrayList<CoffeePost>()
+        database.child("Users").child(namePath).child("MyPost").get().addOnSuccessListener {
+            for (postUser in it.children){
+                val coffeePostId=postUser.getValue(Long::class.java)
+                database.child("posts").child(coffeePostId.toString()).get().addOnSuccessListener {post->
+                    val coffeePost=post.getValue(CoffeePost::class.java)
+                    openUserList.add(coffeePost!!)
+                    openUserPosts.postValue(openUserList)
+                }
+
+            }
+        }
+    }
+    fun getLiveDataOpenUser(): MutableLiveData<ArrayList<CoffeePost>> {
+        return openUserPosts
+    }
+
 
 
 

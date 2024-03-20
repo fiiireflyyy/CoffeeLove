@@ -44,6 +44,11 @@ class RecyclerAdapter(
             fragment.findNavController().navigate(R.id.action_coffeeFragment_to_coffeePostAboutFragment)
         }
 
+        holder.mBinding.userIcon.setOnClickListener {
+            viewModel.downLoadOpenUser(notesList[position].userNickname!!)
+            it.findNavController().navigate(R.id.action_coffeeFragment_to_accountFragment)
+        }
+
     }
 
 

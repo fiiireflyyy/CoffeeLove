@@ -78,6 +78,10 @@ class CoffeeViewModel : ViewModel() {
         return repository.getLiveDataFavorite()
     }
 
+    fun addFavoritePost(postId: Long){
+        repository.addPostFavorite(postId)
+    }
+
 
 
 

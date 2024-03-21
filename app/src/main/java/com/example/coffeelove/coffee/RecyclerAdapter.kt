@@ -49,6 +49,12 @@ class RecyclerAdapter(
             it.findNavController().navigate(R.id.action_coffeeFragment_to_accountFragment)
         }
 
+        holder.mBinding.btnLike.setOnClickListener {
+            viewModel.addFavoritePost(notesList[position].id!!)
+            viewModel.getLiveDataFavorite().value?.add(notesList[position])
+//            viewModel.downLoadFavorite()
+        }
+
     }
 
 

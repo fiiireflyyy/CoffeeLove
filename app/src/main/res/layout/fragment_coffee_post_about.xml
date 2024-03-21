@@ -113,7 +113,7 @@
 
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/btn_like"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginEnd="16dp"

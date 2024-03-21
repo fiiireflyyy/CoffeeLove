@@ -183,6 +183,10 @@ class Repository {
         return favoritePosts
     }
 
+    //Добавление поста в избранное.
+    fun addPostFavorite(postId: Long){
+        userRef.child("Favorite").child(getGenerateId().toString()).setValue(postId)
+    }
 
 
 

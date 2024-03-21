@@ -15,6 +15,7 @@ import com.example.coffeelove.R
 import com.example.coffeelove.coffee.CoffeeViewModel
 import com.example.coffeelove.coffee.FavoritePostAdapter
 import com.example.coffeelove.coffee.MyPostAdapter
+import com.example.coffeelove.coffee.MySubsAdapter
 import com.example.coffeelove.coffee.RecyclerAdapter
 import com.example.coffeelove.databinding.FragmentAccountBinding
 import com.example.coffeelove.databinding.FragmentMyAccountBinding
@@ -27,6 +28,7 @@ class MyAccountFragment : Fragment() {
     private lateinit var tabLayout:TabLayout
     private lateinit var myPostAdapter: MyPostAdapter
     private lateinit var favoritePostAdapter: FavoritePostAdapter
+    private lateinit var mySubsAdapter: MySubsAdapter
     private val mBinding get()=_binding!!
 
 
@@ -42,16 +44,25 @@ class MyAccountFragment : Fragment() {
         mBinding.recyclerMyAccount.layoutManager = LinearLayoutManager(context)
         myPostAdapter= MyPostAdapter()
         favoritePostAdapter= FavoritePostAdapter()
+        mySubsAdapter=MySubsAdapter(this,viewModel)
+
         viewModel.getMyPostLiveData().observe(
             viewLifecycleOwner,
         ){
             array->myPostAdapter.myPostList=array
         }
+
         viewModel.getLiveDataFavorite().observe(
             viewLifecycleOwner,
         ){
             array2->favoritePostAdapter.myFavoriteList=array2
         }
+        viewModel.getMySubsLiveData().observe(
+            viewLifecycleOwner,
+        ){
+            array3->mySubsAdapter.mySubsList=array3
+        }
+
         mBinding.recyclerMyAccount.adapter=myPostAdapter
 
 
@@ -67,6 +78,10 @@ class MyAccountFragment : Fragment() {
 
                     1->{
                         mBinding.recyclerMyAccount.adapter=favoritePostAdapter
+                    }
+
+                    2->{
+                        mBinding.recyclerMyAccount.adapter=mySubsAdapter
                     }
                 }
             }

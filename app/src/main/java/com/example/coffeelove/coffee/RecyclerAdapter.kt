@@ -1,10 +1,12 @@
 package com.example.coffeelove.coffee
 
+import android.util.Log
 import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
@@ -24,7 +26,6 @@ class RecyclerAdapter(
             val diffResult = DiffUtil.calculateDiff(callback)
             diffResult.dispatchUpdatesTo(this)
         }
-    var posit : Int = -1
 
 
 
@@ -38,6 +39,7 @@ class RecyclerAdapter(
     override fun getItemCount()=notesList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.mBinding.btnDeleteOrAdd.setImageResource(R.drawable.baseline_add_24)
         holder.onBind(notesList[position])
         holder.mBinding.recipeDescription.setOnClickListener {
             viewModel.setMoreCoffeePostAboutFragment(notesList.get(position))
@@ -50,9 +52,27 @@ class RecyclerAdapter(
         }
 
         holder.mBinding.btnLike.setOnClickListener {
-            viewModel.addFavoritePost(notesList[position].id!!)
-            viewModel.getLiveDataFavorite().value?.add(notesList[position])
-//            viewModel.downLoadFavorite()
+            val isContain=viewModel.getFavoritePostID().contains(notesList[position].id)
+            Log.d("FENIXXX",isContain.toString())
+            if(isContain){
+                Toast.makeText(fragment.context,"Пост уже добавлен в избранное",Toast.LENGTH_SHORT).show()
+            }else{
+                viewModel.addFavoritePost(notesList[position].id!!)
+                viewModel.getLiveDataFavorite().value?.add(notesList[position])
+            }
+
+        }
+
+
+        holder.mBinding.btnDeleteOrAdd.setOnClickListener {
+            val isContain= viewModel.getMySubsLiveData().value?.contains(notesList[position].userNickname)
+            if(isContain==true){
+                Toast.makeText(fragment.context,"Вы уже подписаны",Toast.LENGTH_SHORT).show()
+            }else{
+                viewModel.addSubscribers(notesList[position].userNickname!!)
+                viewModel.getMySubsLiveData().value?.add(notesList[position].userNickname!!)
+            }
+
         }
 
     }

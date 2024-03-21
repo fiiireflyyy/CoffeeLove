@@ -71,6 +71,10 @@ class CoffeeViewModel : ViewModel() {
 
 
     //фУНКЦИОНАЛЬНОСТЬ ЛАЙКНУТЫХ ПОСТОВ
+
+    fun getFavoritePostID():ArrayList<Long>{
+        return repository.getFavoritePostID()
+    }
     fun downLoadFavorite(){
         repository.downLoadFavoritePosts()
     }
@@ -80,6 +84,17 @@ class CoffeeViewModel : ViewModel() {
 
     fun addFavoritePost(postId: Long){
         repository.addPostFavorite(postId)
+    }
+
+    //ФУНКЦИОНАЛ ПОДПИСКИ
+    fun addSubscribers(subName:String){
+        repository.addSubscribers(subName)
+    }
+    fun getMySubs(){
+        repository.getMySubs()
+    }
+    fun getMySubsLiveData():MutableLiveData<ArrayList<String>>{
+        return repository.getSubsLiveData()
     }
 
 

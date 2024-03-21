@@ -26,8 +26,6 @@ class Repository {
     //Ссылка на пользователя
     private val userRef=database.child("Users").child("TestUser")
 
-    private var countMyPost:Int=10000
-
     //Массив моих постов
     private val myPostList= ArrayList<CoffeePost>()
     private val myPostLiveData:MutableLiveData<ArrayList<CoffeePost>> by lazy { MutableLiveData<ArrayList<CoffeePost>>() }
@@ -38,6 +36,12 @@ class Repository {
 
     //Массив избранных постов
     private val favoritePosts:MutableLiveData<ArrayList<CoffeePost>> by lazy { MutableLiveData<ArrayList<CoffeePost>>() }
+    private val favoritePostsID= ArrayList<Long>()
+
+    //Хранение моих подписок
+    private val mySubsLiveData:MutableLiveData<ArrayList<String>> by lazy { MutableLiveData<ArrayList<String>>() }
+    private val mySubsNameString=ArrayList<String>()
+
 
 
     init {
@@ -166,10 +170,12 @@ class Repository {
 
     //Запросы информации о добавленных в избранное постах
     fun downLoadFavoritePosts(){
+        favoritePostsID.clear()
         val favoritePostList=ArrayList<CoffeePost>()
         database.child("Users").child("TestUser").child("Favorite").get().addOnSuccessListener {
             for (favoritePost in it.children){
                 val coffeePostID=favoritePost.getValue(Long::class.java)
+                favoritePostsID.add(coffeePostID!!)
                 firebaseRefPosts.child(coffeePostID.toString()).get().addOnSuccessListener {post->
                     val coffeePost=post.getValue(CoffeePost::class.java)
                     favoritePostList.add(coffeePost!!)
@@ -179,15 +185,44 @@ class Repository {
         }
     }
 
+    fun getFavoritePostID():ArrayList<Long>{
+        return favoritePostsID
+    }
     fun getLiveDataFavorite(): MutableLiveData<ArrayList<CoffeePost>> {
         return favoritePosts
     }
 
     //Добавление поста в избранное.
     fun addPostFavorite(postId: Long){
+        favoritePostsID.add(postId)
+        Firebase.database.getReference("Users/TestUser/Favorite/${getGenerateId()}").setValue(postId)
         userRef.child("Favorite").child(getGenerateId().toString()).setValue(postId)
     }
 
+
+
+    //Функционал ПОДПИСОК
+    fun addSubscribers(subName:String){
+        Firebase.database.getReference("Users/TestUser/Subs/${getGenerateId()}").setValue(subName)
+    }
+
+    fun getMySubs(){
+        mySubsNameString.clear()
+        userRef.child("Subs").get().addOnSuccessListener {
+            for(nameSubs in it.children){
+                val nameSub=nameSubs.getValue(String::class.java)
+                mySubsNameString.add(nameSub!!)
+                mySubsLiveData.postValue(mySubsNameString)
+            }
+        }
+    }
+
+    fun getMySubsList():ArrayList<String>{
+        return mySubsNameString
+    }
+    fun getSubsLiveData():MutableLiveData<ArrayList<String>>{
+        return mySubsLiveData
+    }
 
 
 

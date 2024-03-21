@@ -26,6 +26,7 @@ class MapFragment : Fragment() {
         viewModel.addBackGroundUppLoad()
         viewModel.getMyPostFromBase()
         viewModel.downLoadFavorite()
+        viewModel.getMySubs()
 
         return mBinding.root
     }

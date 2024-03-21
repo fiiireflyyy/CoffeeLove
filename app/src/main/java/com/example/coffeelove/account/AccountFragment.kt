@@ -29,6 +29,9 @@ class AccountFragment : Fragment() {
     ): View? {
         _binding= FragmentAccountBinding.inflate(inflater, container, false)
 
+        mBinding.buttonGoBack.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
 
 
         openRecyclerAdapter= MyPostAdapter()
@@ -40,6 +43,8 @@ class AccountFragment : Fragment() {
         ){
             array->openRecyclerAdapter.myPostList=array
         }
+
+
 
         return mBinding.root
     }

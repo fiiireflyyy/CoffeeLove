@@ -1,6 +1,5 @@
 package com.example.coffeelove.coffee
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,18 +8,32 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeelove.R
 
-class MyPostAdapter():RecyclerView.Adapter<MyPostAdapter.ViewHolder>() {
+class FavoritePostAdapter: RecyclerView.Adapter<FavoritePostAdapter.ViewHolder>() {
 
 
-    var myPostList = listOf<CoffeePost>()
+    var myFavoriteList = listOf<CoffeePost>()
         set(value) {
-            Log.d("FENIXXX",myPostList.toString())
             val callback = MyDiffUtil(oldArray = field, newArray = value,
                 {old, new ->  old.id==new.id})
             field = value
             val diffResult = DiffUtil.calculateDiff(callback)
             diffResult.dispatchUpdatesTo(this)
         }
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): FavoritePostAdapter.ViewHolder {
+        val inflater= LayoutInflater.from(parent.context)
+        return FavoritePostAdapter.ViewHolder(inflater.inflate(R.layout.coffee_post, parent, false))
+    }
+
+    override fun onBindViewHolder(holder: FavoritePostAdapter.ViewHolder, position: Int) {
+        holder.onBind(myFavoriteList[position])
+    }
+
+    override fun getItemCount()=myFavoriteList.size
+
+
 
 
     class ViewHolder(item: View):RecyclerView.ViewHolder(item){
@@ -36,19 +49,4 @@ class MyPostAdapter():RecyclerView.Adapter<MyPostAdapter.ViewHolder>() {
             countLike.text=items.countLike.toString()
         }
     }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater=LayoutInflater.from(parent.context)
-        return ViewHolder(inflater.inflate(R.layout.coffee_post, parent, false))
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.onBind(myPostList[position])
-    }
-
-
-    override fun getItemCount()= myPostList.size
-    }
-
-
-
+}

@@ -24,8 +24,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding=FragmentLoginBinding.inflate(inflater,container,false)
-        //подкачка постов
-        viewModel.getCountMyPost()
+
 
         mBinding.btnLogin.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_mainFragment)

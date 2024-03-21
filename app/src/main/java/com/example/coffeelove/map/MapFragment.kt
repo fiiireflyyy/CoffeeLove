@@ -25,6 +25,8 @@ class MapFragment : Fragment() {
         //Перенести вызов в сплеш
         viewModel.addBackGroundUppLoad()
         viewModel.getMyPostFromBase()
+        viewModel.downLoadFavorite()
+
         return mBinding.root
     }
 

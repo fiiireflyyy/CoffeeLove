@@ -46,14 +46,12 @@ class CoffeeViewModel : ViewModel() {
         repository.backGroundLoadAllPosts()
     }
 
-    fun getCountMyPost(){
-        repository.getCountMyPost()
-    }
+
     fun getMyPostFromBase(){
         repository.getMyPostFromBase()
     }
-    fun getMyPost(): ArrayList<CoffeePost> {
-        return repository.getMyPostList()
+    fun getMyPostLiveData(): MutableLiveData<ArrayList<CoffeePost>> {
+        return repository.getMyPostListLive()
     }
 
     fun getId(): Long {
@@ -72,6 +70,13 @@ class CoffeeViewModel : ViewModel() {
     }
 
 
+    //фУНКЦИОНАЛЬНОСТЬ ЛАЙКНУТЫХ ПОСТОВ
+    fun downLoadFavorite(){
+        repository.downLoadFavoritePosts()
+    }
+    fun getLiveDataFavorite(): MutableLiveData<ArrayList<CoffeePost>> {
+        return repository.getLiveDataFavorite()
+    }
 
 
 

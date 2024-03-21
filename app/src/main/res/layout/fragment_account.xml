@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".account.MyAccountFragment"
-    android:background="@color/light_beige_main_theme">
+    android:background="@color/milky">
     <ImageButton
         android:id="@+id/button_go_back"
         android:layout_width="40dp"
@@ -14,7 +14,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_weight="0"
-        android:background="@color/light_beige_main_theme"
+        android:background="@color/milky"
         android:scaleType="fitCenter"
         android:src="@drawable/arrow_back_icon"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,11 +67,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_open_account"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="460dp"
         android:layout_marginHorizontal="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="2000dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/coffee_icon" />
 

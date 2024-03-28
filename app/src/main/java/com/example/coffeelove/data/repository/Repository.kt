@@ -19,6 +19,7 @@ class Repository {
 
     //Хранение всех постов, закаченных с бд для передачи в ленту
     val llistLiveData: MutableLiveData<ArrayList<CoffeePost>> by lazy { MutableLiveData<ArrayList<CoffeePost>>()}
+    private val testList=ArrayList<CoffeePost>()
     private val database=Firebase.database.reference
     //Ссылка на все посты
     private val firebaseRefPosts=FirebaseDatabase.getInstance().getReference("posts")
@@ -48,18 +49,24 @@ class Repository {
         llistLiveData.value=ArrayList<CoffeePost>()
     }
 
+    fun getListTest(): MutableLiveData<ArrayList<CoffeePost>> {
+        return llistLiveData
+    }
 
     //Установка слушателя для фоновой подкачки
     fun backGroundLoadAllPosts(){
             firebaseRefPosts.addValueEventListener(object :ValueEventListener{
 
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    testList.clear()
                     llistLiveData.value?.clear()
                     Log.d("FENIXX","Фоновые изменения")
                     if (snapshot.exists()){
                         for(postsCoffee in snapshot.children){
                             val coffeePost=postsCoffee.getValue(CoffeePost::class.java)
-                            llistLiveData.value?.add(coffeePost!!)
+                            testList.add(coffeePost!!)
+                            llistLiveData.postValue(testList)
+//                            llistLiveData.value?.add(coffeePost!!)
                         }
                     }
                 }

@@ -1,5 +1,6 @@
 package com.example.coffeelove.coffee
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,11 @@ class MySubsAdapter(
 //            diffResult.dispatchUpdatesTo(this)
 //        }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun notifying(){
+        notifyDataSetChanged()
+    }
+
 
 
     class ViewHolder(item: View):RecyclerView.ViewHolder(item){
@@ -42,12 +48,13 @@ class MySubsAdapter(
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MySubsAdapter.ViewHolder {
         val inflater=LayoutInflater.from(parent.context)
+        Log.d("RRR","1234567")
         return ViewHolder(inflater.inflate(R.layout.item_subscriber,parent,false))
     }
 
     override fun onBindViewHolder(holder: MySubsAdapter.ViewHolder, position: Int) {
         holder.onBind(mySubsList[position])
-
+        Log.d("RRR",position.toString())
         holder.mBinding.profileIcon.setOnClickListener {
             viewModel.downLoadOpenUser(mySubsList[position])
             it.findNavController().navigate(R.id.action_myAccountFragment_to_accountFragment)
@@ -60,5 +67,6 @@ class MySubsAdapter(
     }
 
     override fun getItemCount()=mySubsList.size
+
     }
 

@@ -39,7 +39,7 @@ class MyAccountFragment : Fragment() {
     ): View {
         _binding=FragmentMyAccountBinding.inflate(inflater, container, false)
         tabLayout=mBinding.profileTabs
-//        viewModel.getMyPostFromBase()
+        viewModel.getMyPostFromBase()
 //        viewModel.downLoadFavorite()
         mBinding.recyclerMyAccount.layoutManager = LinearLayoutManager(context)
         myPostAdapter= MyPostAdapter()
@@ -48,22 +48,32 @@ class MyAccountFragment : Fragment() {
 
         viewModel.getMyPostLiveData().observe(
             viewLifecycleOwner,
-        ){
-            array->myPostAdapter.myPostList=array
+        ){ array->
+            if (array.isNotEmpty()) {
+                myPostAdapter.myPostList = array
+            }
+            myPostAdapter.notifying()
+            Log.d("RRR", array.toString())
         }
 
         viewModel.getLiveDataFavorite().observe(
             viewLifecycleOwner,
-        ){
-            array2->favoritePostAdapter.myFavoriteList=array2
+        ){ array2->
+            if (array2.isNotEmpty()) {
+                favoritePostAdapter.myFavoriteList=array2
+            }
+            favoritePostAdapter.notifying()
+
         }
         viewModel.getMySubsLiveData().observe(
             viewLifecycleOwner,
-        ){
-            array3->mySubsAdapter.mySubsList=array3
+        ){ array3->
+            mySubsAdapter.mySubsList=array3
+            mySubsAdapter.notifying()
         }
 
         mBinding.recyclerMyAccount.adapter=myPostAdapter
+
 
 
 
@@ -73,21 +83,25 @@ class MyAccountFragment : Fragment() {
                 val position=tab?.position
                 when(position){
                     0->{
+                        viewModel.getMyPostFromBase()
+
+                        //Log.d("RRR", "tab 1 " + myPostAdapter.myPostList.toString())
                         mBinding.recyclerMyAccount.adapter=myPostAdapter
                     }
 
                     1->{
+                        viewModel.downLoadFavorite()
                         mBinding.recyclerMyAccount.adapter=favoritePostAdapter
                     }
 
                     2->{
+                        viewModel.getMySubs()
                         mBinding.recyclerMyAccount.adapter=mySubsAdapter
                     }
                 }
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {

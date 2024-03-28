@@ -23,6 +23,10 @@ class CoffeeViewModel : ViewModel() {
 
     }
 
+    fun getListTest(): MutableLiveData<ArrayList<CoffeePost>> {
+        return repository.getListTest()
+    }
+
     fun getMoreCoffeePostAboutFragment(): CoffeePost? {
         return moreCoffeePostAboutFragment
     }

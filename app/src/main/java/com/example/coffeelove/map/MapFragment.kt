@@ -24,9 +24,6 @@ class MapFragment : Fragment() {
         _binding=FragmentMapBinding.inflate(inflater,container, false)
         //Перенести вызов в сплеш
         viewModel.addBackGroundUppLoad()
-        viewModel.getMyPostFromBase()
-        viewModel.downLoadFavorite()
-        viewModel.getMySubs()
 
         return mBinding.root
     }

@@ -1,5 +1,6 @@
 package com.example.coffeelove.coffee
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.ContextMenu
 import android.view.LayoutInflater
@@ -75,6 +76,11 @@ class RecyclerAdapter(
 
         }
 
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun notifying(){
+        notifyDataSetChanged()
     }
 
 

@@ -1,5 +1,6 @@
 package com.example.coffeelove.coffee
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +36,10 @@ class FavoritePostAdapter: RecyclerView.Adapter<FavoritePostAdapter.ViewHolder>(
 
 
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun notifying(){
+        notifyDataSetChanged()
+    }
 
     class ViewHolder(item: View):RecyclerView.ViewHolder(item){
         private val recipeName=item.findViewById<TextView>(R.id.recipe_name)

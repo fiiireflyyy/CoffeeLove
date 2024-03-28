@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "481258366500",
+    "firebase_url": "https://coffeelove-f1a9b-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "coffeelove-f1a9b",
+    "storage_bucket": "coffeelove-f1a9b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481258366500:android:d667d8acb99ce537061ab1",
+        "android_client_info": {
+          "package_name": "com.example.coffeelove"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9PIudqkZZ6XbdUU9hvfjXvOeJQd304Fg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -28,6 +28,7 @@ class CoffeeFragment : Fragment() {
     ): View? {
         _binding=FragmentCoffeeBinding.inflate(inflater,container,false)
 
+
         recyclerAdapter= RecyclerAdapter(this, viewModel)
         mBinding.recyclerCoffeePost.layoutManager=LinearLayoutManager(context)
         mBinding.recyclerCoffeePost.adapter=recyclerAdapter
@@ -35,9 +36,10 @@ class CoffeeFragment : Fragment() {
         recyclerAdapter.notesList=viewModel.getListLiveData()!!
 
 //        СЛУШАТЕЛЬ ДАННЫХ И ЛОГИКА ДЕЙСТВИЙ ПРИ УВЕДОМЛЕНИИ ОБ ИЗМЕНЕНИИ
-//        viewModel.listLiveData.observe(
+//        viewModel.getListTest().observe(
 //            viewLifecycleOwner){
 //            array->recyclerAdapter.notesList=array
+//            recyclerAdapter.notifying()
 //            Log.d("paramparam", array.toString())
 //        }
 

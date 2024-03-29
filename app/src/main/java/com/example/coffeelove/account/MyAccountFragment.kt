@@ -40,7 +40,6 @@ class MyAccountFragment : Fragment() {
         _binding=FragmentMyAccountBinding.inflate(inflater, container, false)
         tabLayout=mBinding.profileTabs
         viewModel.getMyPostFromBase()
-//        viewModel.downLoadFavorite()
         mBinding.recyclerMyAccount.layoutManager = LinearLayoutManager(context)
         myPostAdapter= MyPostAdapter()
         favoritePostAdapter= FavoritePostAdapter()

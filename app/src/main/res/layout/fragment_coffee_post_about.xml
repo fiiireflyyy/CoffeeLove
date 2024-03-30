@@ -63,11 +63,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
+                android:id="@+id/btn_add"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_weight="0"
                 android:scaleType="fitCenter"
-                android:src="@drawable/delete_icon"
+                android:src="@drawable/baseline_add_24"
                 android:background="#FFFFEEDD"
                 android:layout_gravity="center_vertical"/>
         </LinearLayout>

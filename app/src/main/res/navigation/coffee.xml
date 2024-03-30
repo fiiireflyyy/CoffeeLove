@@ -21,7 +21,11 @@
         android:id="@+id/coffeePostAboutFragment"
         android:name="com.example.coffeelove.coffee.CoffeePostAboutFragment"
         android:label="CoffeePostAboutFragment"
-        tools:layout="@layout/fragment_coffee_post_about"/>
+        tools:layout="@layout/fragment_coffee_post_about">
+        <action
+            android:id="@+id/action_coffeePostAboutFragment_to_accountFragment"
+            app:destination="@id/accountFragment" />
+    </fragment>
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.example.coffeelove.account.AccountFragment"

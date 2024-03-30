@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_myAccountFragment_to_accountFragment"
             app:destination="@id/accountFragment" />
+        <action
+            android:id="@+id/action_myAccountFragment_to_coffeePostAboutFragment2"
+            app:destination="@id/coffeePostAboutFragment2" />
     </fragment>
     <fragment
         android:id="@+id/createPostFragment"
@@ -29,4 +32,8 @@
         android:id="@+id/accountFragment"
         android:name="com.example.coffeelove.account.AccountFragment"
         android:label="AccountFragment" />
+    <fragment
+        android:id="@+id/coffeePostAboutFragment2"
+        android:name="com.example.coffeelove.coffee.CoffeePostAboutFragment"
+        android:label="CoffeePostAboutFragment" />
 </navigation>

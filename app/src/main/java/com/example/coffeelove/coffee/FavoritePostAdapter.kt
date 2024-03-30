@@ -5,11 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeelove.R
+import com.example.coffeelove.account.MyAccountFragment
+import com.example.coffeelove.databinding.CoffeePostBinding
 
-class FavoritePostAdapter: RecyclerView.Adapter<FavoritePostAdapter.ViewHolder>() {
+class FavoritePostAdapter(
+    private val fragment:MyAccountFragment,
+    private val viewModel:CoffeeViewModel
+): RecyclerView.Adapter<FavoritePostAdapter.ViewHolder>() {
 
 
     var myFavoriteList = listOf<CoffeePost>()
@@ -30,6 +36,11 @@ class FavoritePostAdapter: RecyclerView.Adapter<FavoritePostAdapter.ViewHolder>(
 
     override fun onBindViewHolder(holder: FavoritePostAdapter.ViewHolder, position: Int) {
         holder.onBind(myFavoriteList[position])
+
+        holder.mBinding.userIcon.setOnClickListener {
+            viewModel.downLoadOpenUser(myFavoriteList[position].userNickname!!)
+            it.findNavController().navigate(R.id.action_myAccountFragment_to_accountFragment)
+        }
     }
 
     override fun getItemCount()=myFavoriteList.size
@@ -42,6 +53,14 @@ class FavoritePostAdapter: RecyclerView.Adapter<FavoritePostAdapter.ViewHolder>(
     }
 
     class ViewHolder(item: View):RecyclerView.ViewHolder(item){
+
+        private var _binding:CoffeePostBinding
+
+        val mBinding get()=_binding
+        init {
+            _binding= CoffeePostBinding.bind(item)
+        }
+
         private val recipeName=item.findViewById<TextView>(R.id.recipe_name)
         private val recipeDescription=item.findViewById<TextView>(R.id.recipe_description)
         private val userNickname=item.findViewById<TextView>(R.id.user_name)

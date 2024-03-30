@@ -34,7 +34,7 @@ class AccountFragment : Fragment() {
         }
 
 
-        openRecyclerAdapter= MyPostAdapter()
+        openRecyclerAdapter= MyPostAdapter(this, viewModel)
         mBinding.recyclerOpenAccount.layoutManager=LinearLayoutManager(context)
         mBinding.recyclerOpenAccount.adapter=openRecyclerAdapter
 
@@ -51,6 +51,7 @@ class AccountFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding=null
     }
 
 }

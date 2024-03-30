@@ -41,8 +41,8 @@ class MyAccountFragment : Fragment() {
         tabLayout=mBinding.profileTabs
         viewModel.getMyPostFromBase()
         mBinding.recyclerMyAccount.layoutManager = LinearLayoutManager(context)
-        myPostAdapter= MyPostAdapter()
-        favoritePostAdapter= FavoritePostAdapter()
+        myPostAdapter= MyPostAdapter(this, viewModel)
+        favoritePostAdapter= FavoritePostAdapter(this,viewModel)
         mySubsAdapter=MySubsAdapter(this,viewModel)
 
         viewModel.getMyPostLiveData().observe(

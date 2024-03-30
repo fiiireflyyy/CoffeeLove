@@ -28,9 +28,6 @@ class LoginFragment : Fragment() {
     ): View? {
         _binding=FragmentLoginBinding.inflate(inflater,container,false)
 
-        val message =RemoteMessage.Builder("Posts")
-            .setData(mapOf("score" to "845", "time" to "22:15")).build()
-        FirebaseMessaging.getInstance().send(message)
 
         mBinding.btnLogin.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_mainFragment)

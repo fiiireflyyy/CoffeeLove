@@ -57,7 +57,7 @@ class CoffeeFragment : Fragment() {
                         mBinding.recyclerCoffeePost.adapter=recyclerAllAdapter
                     }
                     1->{//ПЕРЕПИСАТЬ ПОСЛЕ УЛУЧШЕНИЯ ДИФУТИЛЯ
-
+                        viewModel.downLoadPersonal()
                         mBinding.recyclerCoffeePost.adapter=recomendPostAdapter
                     }
                 }

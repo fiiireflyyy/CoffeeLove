@@ -224,16 +224,16 @@ class Repository {
                         val coffeePostID=post.getValue(Long::class.java)
                         database.child("posts").child(coffeePostID.toString()).get().addOnSuccessListener {
                             val coffeePost=it.getValue(CoffeePost::class.java)
+                            Log.d("RRR",coffeePost.toString())
                             myRecomendCopy.add(coffeePost!!)
+                            myRecomendCopy.sortWith(compareBy{it.id})
+                            myRecomendLive.postValue(myRecomendCopy)
                         }
                     }
                 }
             }
         }
         Log.d("RRR","notify1 ${myRecomendCopy}")
-
-        myRecomendCopy.sortWith(compareBy{it.id})
-        myRecomendLive.postValue(myRecomendCopy)
         Log.d("RRR","notify ${myRecomendCopy}")
     }
 

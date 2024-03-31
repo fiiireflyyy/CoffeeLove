@@ -101,7 +101,14 @@ class CoffeeViewModel : ViewModel() {
         return repository.getSubsLiveData()
     }
 
+    //ФУНКЦИОНАЛ ЛЕНТЫ ДЛЯ ВАС
+    fun downLoadPersonal(){
+        repository.downLoadPersonal()
+    }
 
+    fun getRecomendLive(): MutableLiveData<ArrayList<CoffeePost>> {
+        return repository.getRecomendLive()
+    }
 
 
 

@@ -1,18 +1,15 @@
 package com.example.coffeelove.coffee
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeelove.databinding.FragmentCoffeeBinding
+import com.google.android.material.tabs.TabLayout
 
 class CoffeeFragment : Fragment() {
 
@@ -20,7 +17,9 @@ class CoffeeFragment : Fragment() {
 
     private val mBinding get()=_binding!!
     private val viewModel: CoffeeViewModel by activityViewModels<CoffeeViewModel>()
-    private lateinit var recyclerAdapter: RecyclerAdapter
+    private lateinit var recyclerAllAdapter: RecyclerAdapter
+    private lateinit var recomendPostAdapter: RecyclerAdapter
+    private lateinit var tabLayout: TabLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,12 +27,52 @@ class CoffeeFragment : Fragment() {
     ): View? {
         _binding=FragmentCoffeeBinding.inflate(inflater,container,false)
 
+        tabLayout=mBinding.profileTabs
 
-        recyclerAdapter= RecyclerAdapter(this, viewModel)
+        recyclerAllAdapter= RecyclerAdapter(this, viewModel)
+        recomendPostAdapter= RecyclerAdapter(this, viewModel)
         mBinding.recyclerCoffeePost.layoutManager=LinearLayoutManager(context)
-        mBinding.recyclerCoffeePost.adapter=recyclerAdapter
+        recyclerAllAdapter.notesList=viewModel.getListLiveData()!!
+        mBinding.recyclerCoffeePost.adapter=recyclerAllAdapter
+
+        //ПЕРЕПИСАТЬ ПОСЛЕ УЛУЧШЕНИЯ ДИФУТИЛЯ
+        viewModel.getRecomendLive().observe(
+            viewLifecycleOwner,
+        ){ array->
+            if(array.isNotEmpty()) {
+                recomendPostAdapter.notesList = array
+                recomendPostAdapter.notifying()
+                Log.d("RRR",array.toString())
+            }
+        }
+
+
+
+        tabLayout.addOnTabSelectedListener(object:
+            TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                val position=tab?.position
+                when(position){
+                    0->{
+                        mBinding.recyclerCoffeePost.adapter=recyclerAllAdapter
+                    }
+                    1->{//ПЕРЕПИСАТЬ ПОСЛЕ УЛУЧШЕНИЯ ДИФУТИЛЯ
+
+                        mBinding.recyclerCoffeePost.adapter=recomendPostAdapter
+                    }
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+        })
+
+
         //ЗАПРОС ДАННЫХ ДАННЫХ ИЗ РЕПОЗИТОРИЯ НА МОМЕНТ СОЗДАНИЯ ФРАГМЕНТА
-        recyclerAdapter.notesList=viewModel.getListLiveData()!!
+
 
 //        СЛУШАТЕЛЬ ДАННЫХ И ЛОГИКА ДЕЙСТВИЙ ПРИ УВЕДОМЛЕНИИ ОБ ИЗМЕНЕНИИ
 //        viewModel.getListTest().observe(

@@ -44,6 +44,11 @@ class Repository {
     private val mySubsNameString=ArrayList<String>()
 
 
+    //Хранение постов для вас.
+    private val myRecomendLive:MutableLiveData<ArrayList<CoffeePost>> by lazy { MutableLiveData<ArrayList<CoffeePost>>() }
+    private val myRecomendCopy=ArrayList<CoffeePost>()
+
+
 
     init {
         llistLiveData.value=ArrayList<CoffeePost>()
@@ -95,32 +100,6 @@ class Repository {
         database.child("posts").child(id.toString()).setValue(coffeePost)
     }
 
-
-
-
-
-//Функция получения моих постов из базы
-//    fun getMyPostFromBase(){
-//        var idValue:Long=10
-//        var idMyPostRef:DatabaseReference
-//        myPost.clear()
-//
-//        for (i in  1..countMyPost){
-//            Log.d("FENIXXX","post$i")
-//            idMyPostRef=userRef.child("MyPost").child("post$i")
-//
-//            idMyPostRef.get().addOnSuccessListener {snapshot->
-//                idValue= snapshot.getValue(Long::class.java)!!
-//                database.child("posts").child(idValue.toString()).get().addOnSuccessListener {
-//                    myPost.add(it.getValue(CoffeePost::class.java)!!)
-//                }
-//                Log.d("FENIXXX",idValue.toString())
-//                Log.d("FENIXXX",myPost.isEmpty().toString())
-//            }
-//
-//        }
-//
-//    }
 
     fun getMyPostFromBase(){
         myPostList.clear()
@@ -229,6 +208,37 @@ class Repository {
     }
     fun getSubsLiveData():MutableLiveData<ArrayList<String>>{
         return mySubsLiveData
+    }
+
+
+
+    //ЛОГИКА ЛЕНТЫ ДЛЯ ВАС
+
+    fun downLoadPersonal(){
+        myRecomendCopy.clear()
+        userRef.child("Subs").get().addOnSuccessListener {
+            for(mySub in it.children){
+                val sub=mySub.getValue(String::class.java)
+                database.child("Users").child(sub!!).child("MyPost").get().addOnSuccessListener {posts->
+                    for(post in posts.children){
+                        val coffeePostID=post.getValue(Long::class.java)
+                        database.child("posts").child(coffeePostID.toString()).get().addOnSuccessListener {
+                            val coffeePost=it.getValue(CoffeePost::class.java)
+                            myRecomendCopy.add(coffeePost!!)
+                        }
+                    }
+                }
+            }
+        }
+        Log.d("RRR","notify1 ${myRecomendCopy}")
+
+        myRecomendCopy.sortWith(compareBy{it.id})
+        myRecomendLive.postValue(myRecomendCopy)
+        Log.d("RRR","notify ${myRecomendCopy}")
+    }
+
+    fun getRecomendLive():MutableLiveData<ArrayList<CoffeePost>>{
+        return myRecomendLive
     }
 
 

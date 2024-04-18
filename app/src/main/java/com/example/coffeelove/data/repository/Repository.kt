@@ -3,17 +3,17 @@ package com.example.coffeelove.data.repository
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.coffeelove.coffee.CoffeePost
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.getValue
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
 
 class Repository {
 
@@ -25,7 +25,8 @@ class Repository {
     private val firebaseRefPosts=FirebaseDatabase.getInstance().getReference("posts")
 
     //Ссылка на пользователя
-    private val userRef=database.child("Users").child("TestUser")
+    private var userRef=database.child("Users").child("TestUser")
+    private var userNickName=""
 
     //Массив моих постов
     private val myPostList= ArrayList<CoffeePost>()
@@ -49,10 +50,29 @@ class Repository {
     private val myRecomendCopy=ArrayList<CoffeePost>()
 
 
+    private lateinit var currentUser:FirebaseUser
+
+
 
     init {
         llistLiveData.value=ArrayList<CoffeePost>()
     }
+
+
+    fun setCurrentUser(user:FirebaseUser){
+        currentUser=user
+        userNickName=currentUser.email!!.substringBefore("@")
+        userRef=database.child("Users").child(userNickName)
+        Log.d("RRR",currentUser.email.toString())
+    }
+
+    fun getCurrentUserName(): String {
+        return currentUser.email!!.substringBefore("@")
+    }
+    fun createUser(newUser: FirebaseUser?) {
+        Firebase.database.getReference("TESTAUTH").setValue(1234)
+    }
+
 
     fun getListTest(): MutableLiveData<ArrayList<CoffeePost>> {
         return llistLiveData
@@ -71,7 +91,6 @@ class Repository {
                             val coffeePost=postsCoffee.getValue(CoffeePost::class.java)
                             testList.add(coffeePost!!)
                             llistLiveData.postValue(testList)
-//                            llistLiveData.value?.add(coffeePost!!)
                         }
                     }
                 }
@@ -88,7 +107,6 @@ class Repository {
     //Функция отправления поста в базу данных
     fun createPost(
         id: Long,
-        userNickName:String,
         countLike:Long,
         recipeName:String,
         recipeDescription:String){
@@ -158,7 +176,7 @@ class Repository {
     fun downLoadFavoritePosts(){
         favoritePostsID.clear()
         val favoritePostList=ArrayList<CoffeePost>()
-        database.child("Users").child("TestUser").child("Favorite").get().addOnSuccessListener {
+        database.child("Users").child(userNickName).child("Favorite").get().addOnSuccessListener {
             for (favoritePost in it.children){
                 val coffeePostID=favoritePost.getValue(Long::class.java)
                 favoritePostsID.add(coffeePostID!!)
@@ -181,7 +199,7 @@ class Repository {
     //Добавление поста в избранное.
     fun addPostFavorite(postId: Long){
         favoritePostsID.add(postId)
-        Firebase.database.getReference("Users/TestUser/Favorite/${getGenerateId()}").setValue(postId)
+        Firebase.database.getReference("Users/$userNickName/Favorite/${getGenerateId()}").setValue(postId)
         userRef.child("Favorite").child(getGenerateId().toString()).setValue(postId)
     }
 
@@ -189,7 +207,7 @@ class Repository {
 
     //Функционал ПОДПИСОК
     fun addSubscribers(subName:String){
-        Firebase.database.getReference("Users/TestUser/Subs/${getGenerateId()}").setValue(subName)
+        Firebase.database.getReference("Users/$userNickName/Subs/${getGenerateId()}").setValue(subName)
     }
 
     fun getMySubs(){

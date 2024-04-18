@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.coffeelove.data.repository.Repository
-import com.example.coffeelove.databinding.CoffeePostBinding
+import com.google.firebase.auth.FirebaseUser
 
 class CoffeeViewModel : ViewModel() {
     //Не нужен так как перенес все хранение в repositiry
@@ -23,6 +23,21 @@ class CoffeeViewModel : ViewModel() {
 
     }
 
+
+    //УСТАНОВКА ТЕКУЩЕГО ЮЗЕРА
+
+
+    fun setCurrentUser(user: FirebaseUser?){
+        repository.setCurrentUser(user!!)
+    }
+    fun getCurrentUserName():String{
+        return repository.getCurrentUserName()
+    }
+    //Отправка данных о новом зарегистрированном пользователе
+    fun createUser(newUser: FirebaseUser?) {
+        repository.createUser(newUser)
+    }
+
     fun getListTest(): MutableLiveData<ArrayList<CoffeePost>> {
         return repository.getListTest()
     }
@@ -37,7 +52,7 @@ class CoffeeViewModel : ViewModel() {
 
 
     fun createPost(id: Long, recipeName: String, recipeDescription:String){
-        repository.createPost(id,"TestUser",1234, recipeName,recipeDescription)
+        repository.createPost(id,1234, recipeName,recipeDescription)
     }
 
 

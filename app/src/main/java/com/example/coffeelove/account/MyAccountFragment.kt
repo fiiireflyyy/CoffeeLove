@@ -38,6 +38,7 @@ class MyAccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding=FragmentMyAccountBinding.inflate(inflater, container, false)
+        mBinding.userNameProfile.text = viewModel.getCurrentUserName()
         tabLayout=mBinding.profileTabs
         viewModel.getMyPostFromBase()
         mBinding.recyclerMyAccount.layoutManager = LinearLayoutManager(context)

@@ -89,7 +89,7 @@ class Repository {
                     if (snapshot.exists()){
                         for(postsCoffee in snapshot.children){
                             val coffeePost=postsCoffee.getValue(CoffeePost::class.java)
-                            testList.add(coffeePost!!)
+                            testList.add(0,coffeePost!!)
                             llistLiveData.postValue(testList)
                         }
                     }
@@ -112,7 +112,7 @@ class Repository {
         recipeDescription:String){
 
         val coffeePost=CoffeePost(id,userNickName,countLike, recipeName,recipeDescription)
-        myPostList.add(coffeePost)
+        myPostList.add(0,coffeePost)
         myPostLiveData.postValue(myPostList)
         Firebase.database.getReference("Users/$userNickName/MyPost/${id.toString()}").setValue(id)
         database.child("posts").child(id.toString()).setValue(coffeePost)
@@ -126,7 +126,7 @@ class Repository {
                 val coffeePostID=myAddPost.getValue(Long::class.java)
                 firebaseRefPosts.child(coffeePostID.toString()).get().addOnSuccessListener {post->
                     val coffeePost=post.getValue(CoffeePost::class.java)
-                    myPostList.add(coffeePost!!)
+                    myPostList.add(0,coffeePost!!)
                     myPostLiveData.postValue(myPostList)
                 }
             }
@@ -182,7 +182,7 @@ class Repository {
                 favoritePostsID.add(coffeePostID!!)
                 firebaseRefPosts.child(coffeePostID.toString()).get().addOnSuccessListener {post->
                     val coffeePost=post.getValue(CoffeePost::class.java)
-                    favoritePostList.add(coffeePost!!)
+                    favoritePostList.add(0,coffeePost!!)
                     favoritePosts.postValue(favoritePostList)
                 }
             }
@@ -215,7 +215,7 @@ class Repository {
         userRef.child("Subs").get().addOnSuccessListener {
             for(nameSubs in it.children){
                 val nameSub=nameSubs.getValue(String::class.java)
-                mySubsNameString.add(nameSub!!)
+                mySubsNameString.add(0,nameSub!!)
                 mySubsLiveData.postValue(mySubsNameString)
             }
         }

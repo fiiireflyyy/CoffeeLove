@@ -1,17 +1,23 @@
 package com.example.coffeelove.data.repository
 
+import android.content.Context
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.util.Log
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import com.bumptech.glide.Glide
 import com.example.coffeelove.coffee.CoffeePost
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -20,6 +26,9 @@ class Repository {
     //Хранение всех постов, закаченных с бд для передачи в ленту
     val llistLiveData: MutableLiveData<ArrayList<CoffeePost>> by lazy { MutableLiveData<ArrayList<CoffeePost>>()}
     private val testList=ArrayList<CoffeePost>()
+
+    val storageRef=Firebase.storage.reference
+
     private val database=Firebase.database.reference
     //Ссылка на все посты
     private val firebaseRefPosts=FirebaseDatabase.getInstance().getReference("posts")
@@ -59,6 +68,10 @@ class Repository {
     }
 
 
+    fun getImageRef(id:Long): StorageReference {
+        return storageRef.child("test.jpg")
+    }
+
     fun setCurrentUser(user:FirebaseUser){
         currentUser=user
         userNickName=currentUser.email!!.substringBefore("@")
@@ -77,7 +90,6 @@ class Repository {
     fun getListTest(): MutableLiveData<ArrayList<CoffeePost>> {
         return llistLiveData
     }
-
     //Установка слушателя для фоновой подкачки
     fun backGroundLoadAllPosts(){
             firebaseRefPosts.addValueEventListener(object :ValueEventListener{
@@ -109,13 +121,23 @@ class Repository {
         id: Long,
         countLike:Long,
         recipeName:String,
-        recipeDescription:String){
+        recipeDescription:String,
+        image: Uri?
+    ){
 
         val coffeePost=CoffeePost(id,userNickName,countLike, recipeName,recipeDescription)
         myPostList.add(0,coffeePost)
         myPostLiveData.postValue(myPostList)
         Firebase.database.getReference("Users/$userNickName/MyPost/${id.toString()}").setValue(id)
         database.child("posts").child(id.toString()).setValue(coffeePost)
+        val imageRef=storageRef.child("test.jpg")
+        if (image != null) {
+            imageRef.putFile(image).addOnSuccessListener{
+                Log.d("RRR","ФОТО загружено")
+            }.addOnFailureListener {
+                Log.d("RRR","ОШИБКА фото")
+            }
+        }
     }
 
 

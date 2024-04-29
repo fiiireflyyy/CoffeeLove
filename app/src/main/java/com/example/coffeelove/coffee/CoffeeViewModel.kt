@@ -1,10 +1,15 @@
 package com.example.coffeelove.coffee
 
+import android.content.Context
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.util.Log
+import android.widget.ImageView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.coffeelove.data.repository.Repository
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.storage.StorageReference
 
 class CoffeeViewModel : ViewModel() {
     //Не нужен так как перенес все хранение в repositiry
@@ -12,6 +17,8 @@ class CoffeeViewModel : ViewModel() {
     private val repository=Repository()
     private var moreCoffeePostAboutFragment: CoffeePost? =null
 
+
+    private var imageUri: Uri?=null
 
 
 
@@ -23,8 +30,17 @@ class CoffeeViewModel : ViewModel() {
 
     }
 
+    fun setLastUriImage(uri:Uri){
+        imageUri=uri
+    }
 
+
+    fun getImageRef(id:Long): StorageReference {
+        return repository.getImageRef(id)
+    }
     //УСТАНОВКА ТЕКУЩЕГО ЮЗЕРА
+
+
 
 
     fun setCurrentUser(user: FirebaseUser?){
@@ -52,7 +68,7 @@ class CoffeeViewModel : ViewModel() {
 
 
     fun createPost(id: Long, recipeName: String, recipeDescription:String){
-        repository.createPost(id,1234, recipeName,recipeDescription)
+        repository.createPost(id,1234, recipeName,recipeDescription,imageUri)
     }
 
 

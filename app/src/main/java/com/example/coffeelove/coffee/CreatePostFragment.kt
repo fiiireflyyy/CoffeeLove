@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.coffeelove.R
 import com.example.coffeelove.databinding.FragmentCreatePostBinding
@@ -14,9 +16,8 @@ import com.example.coffeelove.databinding.FragmentCreatePostBinding
 class CreatePostFragment : Fragment() {
 
 
-
+    private val viewModel: CoffeeViewModel by activityViewModels<CoffeeViewModel>()
     private var _binding:FragmentCreatePostBinding?=null
-
     private val mBinding get()=_binding!!
 
 
@@ -46,8 +47,21 @@ class CreatePostFragment : Fragment() {
         mBinding.buttonGoBack.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
+
+
+
+
+        mBinding.imageButtonAdd.setOnClickListener {
+            getContentFromGallery.launch("image/*")
+        }
     }
 
+    private val getContentFromGallery = registerForActivityResult(ActivityResultContracts.GetContent()){
+        if (it != null){
+            mBinding.placePic.setImageURI(it)
+            viewModel.setLastUriImage(it)
+        }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding=null

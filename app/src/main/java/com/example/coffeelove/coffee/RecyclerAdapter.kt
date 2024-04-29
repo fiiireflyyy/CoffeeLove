@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.coffeelove.R
 import com.example.coffeelove.databinding.CoffeePostBinding
 
@@ -42,6 +43,13 @@ class RecyclerAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.mBinding.btnDeleteOrAdd.setImageResource(R.drawable.baseline_add_24)
         holder.onBind(notesList[position])
+
+        Glide.with(fragment.requireContext())
+            .load(viewModel.getImageRef(22))
+            .placeholder(R.drawable.on_load)
+            .error(R.drawable.on_error)
+            .into(holder.mBinding.coffeRecipePic)
+
         holder.mBinding.recipeDescription.setOnClickListener {
             viewModel.setMoreCoffeePostAboutFragment(notesList.get(position))
             fragment.findNavController().navigate(R.id.action_coffeeFragment_to_coffeePostAboutFragment)

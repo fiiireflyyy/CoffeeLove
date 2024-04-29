@@ -69,7 +69,7 @@ class Repository {
 
 
     fun getImageRef(id:Long): StorageReference {
-        return storageRef.child("test.jpg")
+        return storageRef.child("${id.toString()}.jpg")
     }
 
     fun setCurrentUser(user:FirebaseUser){
@@ -130,7 +130,7 @@ class Repository {
         myPostLiveData.postValue(myPostList)
         Firebase.database.getReference("Users/$userNickName/MyPost/${id.toString()}").setValue(id)
         database.child("posts").child(id.toString()).setValue(coffeePost)
-        val imageRef=storageRef.child("test.jpg")
+        val imageRef=storageRef.child("${id.toString()}.jpg")
         if (image != null) {
             imageRef.putFile(image).addOnSuccessListener{
                 Log.d("RRR","ФОТО загружено")

@@ -45,7 +45,7 @@ class RecyclerAdapter(
         holder.onBind(notesList[position])
 
         Glide.with(fragment.requireContext())
-            .load(viewModel.getImageRef(22))
+            .load(viewModel.getImageRef(notesList[position].id!!))
             .placeholder(R.drawable.on_load)
             .error(R.drawable.on_error)
             .into(holder.mBinding.coffeRecipePic)

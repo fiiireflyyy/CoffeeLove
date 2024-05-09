@@ -1,4 +1,4 @@
-package com.example.coffeelove.coffee
+package com.example.coffeelove.view.adapters
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -12,10 +12,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeelove.R
-import com.example.coffeelove.account.AccountFragment
-import com.example.coffeelove.account.MyAccountFragment
+import com.example.coffeelove.view.fragment.account.AccountFragment
+import com.example.coffeelove.view.fragment.account.MyAccountFragment
+import com.example.coffeelove.view.fragment.coffee.CoffeePost
+import com.example.coffeelove.viewModel.CoffeeViewModel
+import com.example.coffeelove.view.fragment.coffee.MyDiffUtil
 import com.example.coffeelove.databinding.CoffeePostBinding
-import com.example.coffeelove.databinding.FragmentAccountBinding
 
 class MyPostAdapter(
     private val fragment:Fragment,
@@ -56,7 +58,7 @@ class MyPostAdapter(
         private val userNickname=item.findViewById<TextView>(R.id.user_name)
         private val countLike=item.findViewById<TextView>(R.id.countLike)
 
-        fun onBind(items:CoffeePost){
+        fun onBind(items: CoffeePost){
             recipeName.text=items.recipeName
             recipeDescription.text=items.recipeDescription
             userNickname.text=items.userNickname

@@ -1,13 +1,11 @@
-package com.example.coffeelove.coffee
+package com.example.coffeelove.viewModel
 
-import android.content.Context
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.util.Log
-import android.widget.ImageView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.coffeelove.data.repository.Repository
+import com.example.coffeelove.view.fragment.coffee.CoffeePost
+import com.example.coffeelove.model.repository.Repository
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.storage.StorageReference
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".account.MyAccountFragment"
+    tools:context=".view.fragment.account.MyAccountFragment"
     android:background="@color/milky">
     <LinearLayout
         android:id="@+id/user_info"

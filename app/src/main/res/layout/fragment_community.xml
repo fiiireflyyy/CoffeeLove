@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingTop="32dp"
     android:background="@color/milky"
-    tools:context=".account.SubscribersFragment">
+    tools:context=".view.fragment.account.SubscribersFragment">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_view"

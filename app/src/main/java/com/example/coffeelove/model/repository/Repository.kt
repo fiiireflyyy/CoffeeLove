@@ -1,14 +1,9 @@
-package com.example.coffeelove.data.repository
+package com.example.coffeelove.model.repository
 
-import android.content.Context
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.util.Log
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
-import com.bumptech.glide.Glide
-import com.example.coffeelove.coffee.CoffeePost
+import com.example.coffeelove.view.fragment.coffee.CoffeePost
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -125,7 +120,7 @@ class Repository {
         image: Uri?
     ){
 
-        val coffeePost=CoffeePost(id,userNickName,countLike, recipeName,recipeDescription)
+        val coffeePost= CoffeePost(id,userNickName,countLike, recipeName,recipeDescription)
         myPostList.add(0,coffeePost)
         myPostLiveData.postValue(myPostList)
         Firebase.database.getReference("Users/$userNickName/MyPost/${id.toString()}").setValue(id)

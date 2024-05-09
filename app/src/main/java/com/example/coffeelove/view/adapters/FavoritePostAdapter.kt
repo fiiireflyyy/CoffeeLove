@@ -1,4 +1,4 @@
-package com.example.coffeelove.coffee
+package com.example.coffeelove.view.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,12 +9,15 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeelove.R
-import com.example.coffeelove.account.MyAccountFragment
+import com.example.coffeelove.view.fragment.account.MyAccountFragment
+import com.example.coffeelove.view.fragment.coffee.CoffeePost
+import com.example.coffeelove.viewModel.CoffeeViewModel
+import com.example.coffeelove.view.fragment.coffee.MyDiffUtil
 import com.example.coffeelove.databinding.CoffeePostBinding
 
 class FavoritePostAdapter(
-    private val fragment:MyAccountFragment,
-    private val viewModel:CoffeeViewModel
+    private val fragment: MyAccountFragment,
+    private val viewModel: CoffeeViewModel
 ): RecyclerView.Adapter<FavoritePostAdapter.ViewHolder>() {
 
 
@@ -29,12 +32,12 @@ class FavoritePostAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FavoritePostAdapter.ViewHolder {
+    ): ViewHolder {
         val inflater= LayoutInflater.from(parent.context)
-        return FavoritePostAdapter.ViewHolder(inflater.inflate(R.layout.coffee_post, parent, false))
+        return ViewHolder(inflater.inflate(R.layout.coffee_post, parent, false))
     }
 
-    override fun onBindViewHolder(holder: FavoritePostAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.onBind(myFavoriteList[position])
 
         holder.mBinding.userIcon.setOnClickListener {
@@ -66,7 +69,7 @@ class FavoritePostAdapter(
         private val userNickname=item.findViewById<TextView>(R.id.user_name)
         private val countLike=item.findViewById<TextView>(R.id.countLike)
 
-        fun onBind(items:CoffeePost){
+        fun onBind(items: CoffeePost){
             recipeName.text=items.recipeName
             recipeDescription.text=items.recipeDescription
             userNickname.text=items.userNickname

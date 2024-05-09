@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/light_beige_main_theme"
-    tools:context=".login.LoginFragment">
+    tools:context=".view.fragment.login.LoginFragment">
     <!--    android:translationZ="10dp">-->
 
     <androidx.constraintlayout.widget.ConstraintLayout

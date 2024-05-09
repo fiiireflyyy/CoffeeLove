@@ -1,16 +1,13 @@
-package com.example.coffeelove
+package com.example.coffeelove.view.fragment
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import com.example.coffeelove.coffee.CoffeeViewModel
-import com.example.coffeelove.databinding.FragmentLoginBinding
+import com.example.coffeelove.R
 import com.example.coffeelove.databinding.FragmentMainBinding
 import com.google.android.material.navigation.NavigationBarView
 

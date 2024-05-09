@@ -1,4 +1,4 @@
-package com.example.coffeelove.coffee
+package com.example.coffeelove.view.fragment.coffee
 
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeelove.databinding.FragmentCoffeeBinding
+import com.example.coffeelove.view.adapters.RecyclerAdapter
+import com.example.coffeelove.viewModel.CoffeeViewModel
 import com.google.android.material.tabs.TabLayout
 
 class CoffeeFragment : Fragment() {

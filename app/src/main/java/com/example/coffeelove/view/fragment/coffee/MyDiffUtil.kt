@@ -1,4 +1,4 @@
-package com.example.coffeelove.coffee
+package com.example.coffeelove.view.fragment.coffee
 
 import androidx.recyclerview.widget.DiffUtil
 

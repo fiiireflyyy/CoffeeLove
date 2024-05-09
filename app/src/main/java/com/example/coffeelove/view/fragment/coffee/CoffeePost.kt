@@ -1,4 +1,4 @@
-package com.example.coffeelove.coffee
+package com.example.coffeelove.view.fragment.coffee
 
 class CoffeePost(
     val id: Long? = null,

@@ -1,4 +1,4 @@
-package com.example.coffeelove.account
+package com.example.coffeelove.view.fragment.account
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle

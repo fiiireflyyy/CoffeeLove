@@ -1,4 +1,4 @@
-package com.example.coffeelove.login
+package com.example.coffeelove.view.fragment.login
 
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.coffeelove.R
-import com.example.coffeelove.coffee.CoffeeViewModel
+import com.example.coffeelove.viewModel.CoffeeViewModel
 import com.example.coffeelove.databinding.FragmentRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth

@@ -1,4 +1,4 @@
-package com.example.coffeelove;
+package com.example.coffeelove.model;
 import android.content.Context;
 
 import com.bumptech.glide.Glide;

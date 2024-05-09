@@ -1,6 +1,5 @@
-package com.example.coffeelove.account
+package com.example.coffeelove.view.fragment.account
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,12 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.coffeelove.R
-import com.example.coffeelove.coffee.CoffeeViewModel
-import com.example.coffeelove.coffee.MyPostAdapter
-import com.example.coffeelove.coffee.RecyclerAdapter
+import com.example.coffeelove.viewModel.CoffeeViewModel
+import com.example.coffeelove.view.adapters.MyPostAdapter
 import com.example.coffeelove.databinding.FragmentAccountBinding
-import com.example.coffeelove.databinding.FragmentMyAccountBinding
 
 class AccountFragment : Fragment() {
 

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/coffeeFragment"
-        android:name="com.example.coffeelove.coffee.CoffeeFragment"
+        android:name="com.example.coffeelove.view.fragment.coffee.CoffeeFragment"
         android:label="fragment_coffee"
         tools:layout="@layout/fragment_coffee" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/coffeePostAboutFragment"
-        android:name="com.example.coffeelove.coffee.CoffeePostAboutFragment"
+        android:name="com.example.coffeelove.view.fragment.coffee.CoffeePostAboutFragment"
         android:label="CoffeePostAboutFragment"
         tools:layout="@layout/fragment_coffee_post_about">
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
-        android:name="com.example.coffeelove.account.AccountFragment"
+        android:name="com.example.coffeelove.view.fragment.account.AccountFragment"
         android:label="AccountFragment"
         tools:layout="@layout/fragment_account">
         <action

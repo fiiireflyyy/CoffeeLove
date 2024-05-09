@@ -1,30 +1,26 @@
-package com.example.coffeelove.account
+package com.example.coffeelove.view.fragment.account
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeelove.R
-import com.example.coffeelove.coffee.CoffeeViewModel
-import com.example.coffeelove.coffee.FavoritePostAdapter
-import com.example.coffeelove.coffee.MyPostAdapter
-import com.example.coffeelove.coffee.MySubsAdapter
-import com.example.coffeelove.coffee.RecyclerAdapter
-import com.example.coffeelove.databinding.FragmentAccountBinding
+import com.example.coffeelove.viewModel.CoffeeViewModel
+import com.example.coffeelove.view.adapters.FavoritePostAdapter
+import com.example.coffeelove.view.adapters.MyPostAdapter
+import com.example.coffeelove.view.adapters.MySubsAdapter
 import com.example.coffeelove.databinding.FragmentMyAccountBinding
 import com.google.android.material.tabs.TabLayout
 
 class MyAccountFragment : Fragment() {
 
     private var _binding: FragmentMyAccountBinding?=null
-    private val viewModel:CoffeeViewModel by activityViewModels<CoffeeViewModel>()
+    private val viewModel: CoffeeViewModel by activityViewModels<CoffeeViewModel>()
     private lateinit var tabLayout:TabLayout
     private lateinit var myPostAdapter: MyPostAdapter
     private lateinit var favoritePostAdapter: FavoritePostAdapter
@@ -44,7 +40,7 @@ class MyAccountFragment : Fragment() {
         mBinding.recyclerMyAccount.layoutManager = LinearLayoutManager(context)
         myPostAdapter= MyPostAdapter(this, viewModel)
         favoritePostAdapter= FavoritePostAdapter(this,viewModel)
-        mySubsAdapter=MySubsAdapter(this,viewModel)
+        mySubsAdapter= MySubsAdapter(this,viewModel)
 
         viewModel.getMyPostLiveData().observe(
             viewLifecycleOwner,

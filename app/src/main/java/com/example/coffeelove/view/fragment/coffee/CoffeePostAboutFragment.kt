@@ -1,6 +1,5 @@
-package com.example.coffeelove.coffee
+package com.example.coffeelove.view.fragment.coffee
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.example.coffeelove.R
 import com.example.coffeelove.databinding.FragmentCoffeePostAboutBinding
+import com.example.coffeelove.viewModel.CoffeeViewModel
 
 class CoffeePostAboutFragment : Fragment() {
 
@@ -18,7 +18,7 @@ class CoffeePostAboutFragment : Fragment() {
 
     private val mBinding get()=_binding!!
     private val viewModel: CoffeeViewModel by activityViewModels<CoffeeViewModel>()
-    lateinit var coffeePost:CoffeePost
+    lateinit var coffeePost: CoffeePost
 
 
 

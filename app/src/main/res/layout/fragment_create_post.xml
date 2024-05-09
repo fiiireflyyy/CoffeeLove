@@ -6,7 +6,7 @@
     android:paddingTop="24dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/light_beige_main_theme"
-    tools:context=".coffee.CreatePostFragment">
+    tools:context=".view.fragment.coffee.CreatePostFragment">
 
     <ImageButton
         android:id="@+id/button_go_back"

@@ -1,4 +1,4 @@
-package com.example.coffeelove
+package com.example.coffeelove.view.activity
 
 import android.app.Application
 import com.yandex.mapkit.MapKitFactory

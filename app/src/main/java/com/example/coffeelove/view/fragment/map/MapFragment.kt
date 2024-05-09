@@ -1,4 +1,4 @@
-package com.example.coffeelove.map
+package com.example.coffeelove.view.fragment.map
 
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -16,7 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.coffeelove.R
-import com.example.coffeelove.coffee.CoffeeViewModel
+import com.example.coffeelove.viewModel.CoffeeViewModel
 import com.example.coffeelove.databinding.FragmentMapBinding
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point

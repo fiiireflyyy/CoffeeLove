@@ -1,4 +1,4 @@
-package com.example.coffeelove.coffee
+package com.example.coffeelove.view.fragment.coffee
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.coffeelove.R
 import com.example.coffeelove.databinding.FragmentCreatePostBinding
+import com.example.coffeelove.viewModel.CoffeeViewModel
 
 class CreatePostFragment : Fragment() {
 

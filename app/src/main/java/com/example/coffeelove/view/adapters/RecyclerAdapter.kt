@@ -1,8 +1,7 @@
-package com.example.coffeelove.coffee
+package com.example.coffeelove.view.adapters
 
 import android.annotation.SuppressLint
 import android.util.Log
-import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +13,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.coffeelove.R
+import com.example.coffeelove.view.fragment.coffee.CoffeeFragment
+import com.example.coffeelove.view.fragment.coffee.CoffeePost
+import com.example.coffeelove.viewModel.CoffeeViewModel
+import com.example.coffeelove.view.fragment.coffee.MyDiffUtil
 import com.example.coffeelove.databinding.CoffeePostBinding
 
 class RecyclerAdapter(
-    private val fragment:CoffeeFragment,
-    private val viewModel:CoffeeViewModel):RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+    private val fragment: CoffeeFragment,
+    private val viewModel: CoffeeViewModel
+):RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     var notesList = listOf<CoffeePost>()
         set(value) {

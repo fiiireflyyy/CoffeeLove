@@ -6,7 +6,7 @@
     app:startDestination="@id/myAccountFragment">
     <fragment
         android:id="@+id/myAccountFragment"
-        android:name="com.example.coffeelove.account.MyAccountFragment"
+        android:name="com.example.coffeelove.view.fragment.account.MyAccountFragment"
         android:label="myAccountFragment"
         tools:layout="@layout/fragment_my_account" >
         <action
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/createPostFragment"
-        android:name="com.example.coffeelove.coffee.CreatePostFragment"
+        android:name="com.example.coffeelove.view.fragment.coffee.CreatePostFragment"
         android:label="fragment_create_post"
         tools:layout="@layout/fragment_create_post" >
         <action
@@ -30,10 +30,10 @@
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
-        android:name="com.example.coffeelove.account.AccountFragment"
+        android:name="com.example.coffeelove.view.fragment.account.AccountFragment"
         android:label="AccountFragment" />
     <fragment
         android:id="@+id/coffeePostAboutFragment2"
-        android:name="com.example.coffeelove.coffee.CoffeePostAboutFragment"
+        android:name="com.example.coffeelove.view.fragment.coffee.CoffeePostAboutFragment"
         android:label="CoffeePostAboutFragment" />
 </navigation>

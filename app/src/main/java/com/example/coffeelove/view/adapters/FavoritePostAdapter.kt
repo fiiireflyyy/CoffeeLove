@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.coffeelove.R
 import com.example.coffeelove.view.fragment.account.MyAccountFragment
 import com.example.coffeelove.view.fragment.coffee.CoffeePost
@@ -39,10 +41,27 @@ class FavoritePostAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.onBind(myFavoriteList[position])
+        Glide.with(fragment.requireContext())
+            .load(viewModel.getImageRef(myFavoriteList[position].id!!))
+            .placeholder(R.drawable.on_load)
+            .error(R.drawable.on_error)
+            .into(holder.mBinding.coffeRecipePic)
 
         holder.mBinding.userIcon.setOnClickListener {
+            viewModel.setGoToUser(myFavoriteList[position].userNickname!!)
             viewModel.downLoadOpenUser(myFavoriteList[position].userNickname!!)
             it.findNavController().navigate(R.id.action_myAccountFragment_to_accountFragment)
+        }
+        holder.mBinding.coffePost.setOnClickListener {
+            if(it!=holder.mBinding.btnDeleteOrAdd && it!=holder.mBinding.userIcon){
+                viewModel.setMoreCoffeePostAboutFragment(myFavoriteList.get(position))
+                fragment.findNavController().navigate(R.id.coffeePostAboutFragment)
+            }
+        }
+        holder.mBinding.btnDeleteOrAdd.setOnClickListener {
+            val local=viewModel.getLiveDataFavorite().value
+            local!!.removeAt(position)
+            viewModel.getLiveDataFavorite().postValue(local)
         }
     }
 
@@ -65,15 +84,11 @@ class FavoritePostAdapter(
         }
 
         private val recipeName=item.findViewById<TextView>(R.id.recipe_name)
-        private val recipeDescription=item.findViewById<TextView>(R.id.recipe_description)
         private val userNickname=item.findViewById<TextView>(R.id.user_name)
-        private val countLike=item.findViewById<TextView>(R.id.countLike)
 
         fun onBind(items: CoffeePost){
             recipeName.text=items.recipeName
-            recipeDescription.text=items.recipeDescription
             userNickname.text=items.userNickname
-            countLike.text=items.countLike.toString()
         }
     }
 }

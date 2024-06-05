@@ -45,7 +45,7 @@ class RecyclerAdapter(
     override fun getItemCount()=notesList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.mBinding.btnDeleteOrAdd.setImageResource(R.drawable.baseline_add_24)
+        holder.mBinding.btnDeleteOrAdd.visibility=View.GONE
         holder.onBind(notesList[position])
 
         Glide.with(fragment.requireContext())
@@ -54,39 +54,34 @@ class RecyclerAdapter(
             .error(R.drawable.on_error)
             .into(holder.mBinding.coffeRecipePic)
 
-        holder.mBinding.recipeDescription.setOnClickListener {
-            viewModel.setMoreCoffeePostAboutFragment(notesList.get(position))
-            fragment.findNavController().navigate(R.id.action_coffeeFragment_to_coffeePostAboutFragment)
+//        holder.mBinding.recipeDescription.setOnClickListener {
+//            viewModel.setMoreCoffeePostAboutFragment(notesList.get(position))
+//            fragment.findNavController().navigate(R.id.action_coffeeFragment_to_coffeePostAboutFragment)
+//        }
+        holder.mBinding.coffePost.setOnClickListener {
+            if(it!=holder.mBinding.btnDeleteOrAdd && it!=holder.mBinding.userIcon){
+                viewModel.setMoreCoffeePostAboutFragment(notesList.get(position))
+                fragment.findNavController().navigate(R.id.action_coffeeFragment_to_coffeePostAboutFragment)
+            }
         }
 
         holder.mBinding.userIcon.setOnClickListener {
+            viewModel.setGoToUser(notesList[position].userNickname!!)
             viewModel.downLoadOpenUser(notesList[position].userNickname!!)
             it.findNavController().navigate(R.id.action_coffeeFragment_to_accountFragment)
         }
 
-        holder.mBinding.btnLike.setOnClickListener {
-            val isContain=viewModel.getFavoritePostID().contains(notesList[position].id)
-            Log.d("FENIXXX",isContain.toString())
-            if(isContain){
-                Toast.makeText(fragment.context,"Пост уже добавлен в избранное",Toast.LENGTH_SHORT).show()
-            }else{
-                viewModel.addFavoritePost(notesList[position].id!!)
-                viewModel.getLiveDataFavorite().value?.add(notesList[position])
-            }
-
-        }
-
-
-        holder.mBinding.btnDeleteOrAdd.setOnClickListener {
-            val isContain= viewModel.getMySubsLiveData().value?.contains(notesList[position].userNickname)
-            if(isContain==true){
-                Toast.makeText(fragment.context,"Вы уже подписаны",Toast.LENGTH_SHORT).show()
-            }else{
-                viewModel.addSubscribers(notesList[position].userNickname!!)
-                viewModel.getMySubsLiveData().value?.add(notesList[position].userNickname!!)
-            }
-
-        }
+//        holder.mBinding.btnLike.setOnClickListener {
+//            val isContain=viewModel.getFavoritePostID().contains(notesList[position].id)
+//            Log.d("FENIXXX",isContain.toString())
+//            if(isContain){
+//                Toast.makeText(fragment.context,"Пост уже добавлен в избранное",Toast.LENGTH_SHORT).show()
+//            }else{
+//                viewModel.addFavoritePost(notesList[position].id!!)
+//                viewModel.getLiveDataFavorite().value?.add(notesList[position])
+//            }
+//
+//        }
 
     }
 
@@ -107,14 +102,10 @@ class RecyclerAdapter(
 
 
         private  val recipeName=item.findViewById<TextView>(R.id.recipe_name)
-        private val recipeDescription=item.findViewById<TextView>(R.id.recipe_description)
         private val userNickname=item.findViewById<TextView>(R.id.user_name)
-        private val countLike=item.findViewById<TextView>(R.id.countLike)
         fun onBind(items: CoffeePost){
             userNickname.text=items.userNickname
-            countLike.text=items.countLike.toString()
             recipeName.text=items.recipeName
-            recipeDescription.text=items.recipeDescription
         }
 
     }

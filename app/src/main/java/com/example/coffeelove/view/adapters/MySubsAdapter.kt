@@ -57,13 +57,16 @@ class MySubsAdapter(
         holder.onBind(mySubsList[position])
         Log.d("RRR",position.toString())
         holder.mBinding.profileIcon.setOnClickListener {
+            viewModel.setGoToUser(mySubsList[position])
             viewModel.downLoadOpenUser(mySubsList[position])
             it.findNavController().navigate(R.id.action_myAccountFragment_to_accountFragment)
         }
         holder.mBinding.showButton.setOnClickListener {
+            viewModel.setGoToUser(mySubsList[position])
             viewModel.downLoadOpenUser(mySubsList[position])
             it.findNavController().navigate(R.id.action_myAccountFragment_to_accountFragment)
         }
+
 
     }
 

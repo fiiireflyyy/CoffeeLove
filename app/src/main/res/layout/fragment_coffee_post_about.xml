@@ -24,6 +24,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageButton
+            android:id="@+id/btn_add"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="0"
+            android:background="#FFFFEEDD"
+            android:scaleType="fitCenter"
+            android:src="@drawable/baseline_add_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <LinearLayout
             android:id="@+id/user_info"
             android:layout_width="match_parent"
@@ -35,8 +49,8 @@
 
             <ImageView
                 android:id="@+id/user_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:clipToOutline="true"
                 android:cropToPadding="true"
                 android:foregroundGravity="center"
@@ -57,20 +71,11 @@
                 android:gravity="center_vertical"
                 android:maxLength="32"
                 android:text="User nickname"
+                android:textStyle="bold"
                 android:textColor="@color/dark_brown"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/place_icon"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/btn_add"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_weight="0"
-                android:scaleType="fitCenter"
-                android:src="@drawable/baseline_add_24"
-                android:background="#FFFFEEDD"
-                android:layout_gravity="center_vertical"/>
         </LinearLayout>
 
         <ImageView
@@ -95,6 +100,7 @@
             android:text="Название кофе/рецепта"
             android:textColor="#FF321300"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/coffee_recipe_pic" />
 
@@ -110,7 +116,8 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/coffee_recipe"
-            android:textSize="12sp" />
+            android:textSize="16sp"
+            android:gravity="center"/>
 
 
         <ImageButton

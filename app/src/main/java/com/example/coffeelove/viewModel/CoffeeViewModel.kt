@@ -42,7 +42,12 @@ class CoffeeViewModel : ViewModel() {
 
 
     fun setCurrentUser(user: FirebaseUser?){
-        repository.setCurrentUser(user!!)
+        if (user != null) {
+            repository.setCurrentUser(user)
+        }
+        else{
+
+        }
     }
     fun getCurrentUserName():String{
         return repository.getCurrentUserName()
@@ -129,6 +134,9 @@ class CoffeeViewModel : ViewModel() {
     fun getMySubsLiveData():MutableLiveData<ArrayList<String>>{
         return repository.getSubsLiveData()
     }
+    fun getMySubsList(): ArrayList<String> {
+        return repository.getMySubsList()
+    }
 
     //ФУНКЦИОНАЛ ЛЕНТЫ ДЛЯ ВАС
     fun downLoadPersonal(){
@@ -139,6 +147,33 @@ class CoffeeViewModel : ViewModel() {
         return repository.getRecomendLive()
     }
 
+    fun unsubUser(userNickName:String){
+        repository.unsubUser(userNickName)
+    }
 
 
+    private var subOrUnsub:Boolean=true
+
+    fun getSubOrUnsub(): Boolean? {
+        return subOrUnsub
+    }
+    fun setSubOrUnsub(state:Boolean){
+        subOrUnsub=state
+    }
+
+    private var goToUser=""
+    fun getGoToUser(): String {
+        return goToUser
+    }
+    fun setGoToUser(user:String){
+        goToUser=user
+    }
+
+    private var isLiked:Boolean=false
+    fun getIsLiked(): Boolean {
+        return isLiked
+    }
+    fun setIsLiked(flag:Boolean){
+        isLiked=flag
+    }
 }

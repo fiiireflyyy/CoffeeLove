@@ -56,11 +56,19 @@ class CoffeeFragment : Fragment() {
                 val position=tab?.position
                 when(position){
                     0->{
+                        mBinding.message.visibility=View.GONE
+                        mBinding.recyclerCoffeePost.visibility=View.VISIBLE
                         mBinding.recyclerCoffeePost.adapter=recyclerAllAdapter
                     }
                     1->{//ПЕРЕПИСАТЬ ПОСЛЕ УЛУЧШЕНИЯ ДИФУТИЛЯ
-                        viewModel.downLoadPersonal()
-                        mBinding.recyclerCoffeePost.adapter=recomendPostAdapter
+                        if (viewModel.getCurrentUserName()!="гость"){
+                            viewModel.downLoadPersonal()
+                            mBinding.recyclerCoffeePost.adapter=recomendPostAdapter
+                        }
+                        else{
+                            mBinding.recyclerCoffeePost.visibility=View.GONE
+                            mBinding.message.visibility=View.VISIBLE
+                        }
                     }
                 }
             }

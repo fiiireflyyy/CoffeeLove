@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,7 +16,11 @@ import com.example.coffeelove.view.adapters.FavoritePostAdapter
 import com.example.coffeelove.view.adapters.MyPostAdapter
 import com.example.coffeelove.view.adapters.MySubsAdapter
 import com.example.coffeelove.databinding.FragmentMyAccountBinding
+import com.example.coffeelove.view.activity.MainActivity
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class MyAccountFragment : Fragment() {
 
@@ -35,6 +40,15 @@ class MyAccountFragment : Fragment() {
     ): View {
         _binding=FragmentMyAccountBinding.inflate(inflater, container, false)
         mBinding.userNameProfile.text = viewModel.getCurrentUserName()
+        if (viewModel.getCurrentUserName()=="гость"){
+            mBinding.recyclerMyAccount.visibility=View.GONE
+            val textView = TextView(requireContext())
+            textView.text = "Войдите, чтобы иметь этот функционал"
+
+
+            _binding!!.container.addView(textView)
+            mBinding.buttonCreatePost.visibility=View.GONE
+        }
         tabLayout=mBinding.profileTabs
         viewModel.getMyPostFromBase()
         mBinding.recyclerMyAccount.layoutManager = LinearLayoutManager(context)
@@ -48,6 +62,7 @@ class MyAccountFragment : Fragment() {
             if (array.isNotEmpty()) {
                 myPostAdapter.myPostList = array
             }
+
             myPostAdapter.notifying()
             Log.d("RRR", array.toString())
         }
@@ -116,6 +131,10 @@ class MyAccountFragment : Fragment() {
 //        myRecyclerAdapter.myPostList=viewModel.getMyPost()
         mBinding.buttonCreatePost.setOnClickListener {
             findNavController().navigate(R.id.action_myAccountFragment_to_createPostFragment)
+        }
+        mBinding.exitBtn.setOnClickListener {
+            Firebase.auth.signOut()
+            (activity as MainActivity).navRestart()
         }
     }
 

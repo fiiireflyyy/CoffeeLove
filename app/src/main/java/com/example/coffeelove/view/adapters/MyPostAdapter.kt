@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.coffeelove.R
 import com.example.coffeelove.view.fragment.account.AccountFragment
 import com.example.coffeelove.view.fragment.account.MyAccountFragment
@@ -54,15 +55,11 @@ class MyPostAdapter(
         }
 
         private val recipeName=item.findViewById<TextView>(R.id.recipe_name)
-        private val recipeDescription=item.findViewById<TextView>(R.id.recipe_description)
         private val userNickname=item.findViewById<TextView>(R.id.user_name)
-        private val countLike=item.findViewById<TextView>(R.id.countLike)
 
         fun onBind(items: CoffeePost){
             recipeName.text=items.recipeName
-            recipeDescription.text=items.recipeDescription
             userNickname.text=items.userNickname
-            countLike.text=items.countLike.toString()
         }
     }
 
@@ -72,24 +69,31 @@ class MyPostAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.onBind(myPostList[position])
-        holder.mBinding.recipeDescription.setOnClickListener{
-            viewModel.setMoreCoffeePostAboutFragment(myPostList[position])
-            if (fragment is MyAccountFragment){
-                fragment.findNavController().navigate(R.id.action_myAccountFragment_to_coffeePostAboutFragment2)
-            }else{
-                fragment.findNavController().navigate(R.id.action_accountFragment_to_coffeePostAboutFragment)
-            }
+        if (fragment is AccountFragment){
+            holder.mBinding.btnDeleteOrAdd.visibility=View.GONE
         }
-
-        if(fragment is AccountFragment){
-            holder.mBinding.btnLike.setOnClickListener {
-                val isContain=viewModel.getFavoritePostID().contains(myPostList[position].id)
-                if(isContain){
-                    Toast.makeText(fragment.context,"Пост уже добавлен в избранное",Toast.LENGTH_SHORT).show()
-                }else{
-                    viewModel.addFavoritePost(myPostList[position].id!!)
-                    viewModel.getLiveDataFavorite().value?.add(myPostList[position])
+        holder.onBind(myPostList[position])
+        Glide.with(fragment.requireContext())
+            .load(viewModel.getImageRef(myPostList[position].id!!))
+            .placeholder(R.drawable.on_load)
+            .error(R.drawable.on_error)
+            .into(holder.mBinding.coffeRecipePic)
+//        holder.mBinding.recipeDescription.setOnClickListener{
+//            viewModel.setMoreCoffeePostAboutFragment(myPostList[position])
+//            if (fragment is MyAccountFragment){
+//                fragment.findNavController().navigate(R.id.action_myAccountFragment_to_coffeePostAboutFragment2)
+//            }else{
+//                fragment.findNavController().navigate(R.id.action_accountFragment_to_coffeePostAboutFragment)
+//            }
+//        }
+        holder.mBinding.coffePost.setOnClickListener {
+            if(it!=holder.mBinding.btnDeleteOrAdd && it!=holder.mBinding.userIcon){
+                viewModel.setMoreCoffeePostAboutFragment(myPostList[position])
+                if (fragment is MyAccountFragment){
+                    fragment.findNavController().navigate(R.id.action_myAccountFragment_to_coffeePostAboutFragment2)
+                }
+                else{
+                    fragment.findNavController().navigate(R.id.coffeePostAboutFragment)
                 }
             }
         }

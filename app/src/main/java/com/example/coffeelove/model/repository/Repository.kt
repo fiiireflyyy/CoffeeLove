@@ -1,6 +1,7 @@
 package com.example.coffeelove.model.repository
 
 import android.net.Uri
+import android.provider.ContactsContract.CommonDataKinds.Nickname
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.coffeelove.view.fragment.coffee.CoffeePost
@@ -29,7 +30,7 @@ class Repository {
     private val firebaseRefPosts=FirebaseDatabase.getInstance().getReference("posts")
 
     //Ссылка на пользователя
-    private var userRef=database.child("Users").child("TestUser")
+    private var userRef=database.child("Users")
     private var userNickName=""
 
     //Массив моих постов
@@ -39,7 +40,6 @@ class Repository {
     //Массив постов открытого пользователя
     private val openUserPosts: MutableLiveData<ArrayList<CoffeePost>> by lazy { MutableLiveData<ArrayList<CoffeePost>>()}
 
-
     //Массив избранных постов
     private val favoritePosts:MutableLiveData<ArrayList<CoffeePost>> by lazy { MutableLiveData<ArrayList<CoffeePost>>() }
     private val favoritePostsID= ArrayList<Long>()
@@ -48,14 +48,12 @@ class Repository {
     private val mySubsLiveData:MutableLiveData<ArrayList<String>> by lazy { MutableLiveData<ArrayList<String>>() }
     private val mySubsNameString=ArrayList<String>()
 
-
     //Хранение постов для вас.
     private val myRecomendLive:MutableLiveData<ArrayList<CoffeePost>> by lazy { MutableLiveData<ArrayList<CoffeePost>>() }
     private val myRecomendCopy=ArrayList<CoffeePost>()
 
 
-    private lateinit var currentUser:FirebaseUser
-
+    private var currentUser:FirebaseUser?=null
 
 
     init {
@@ -69,13 +67,16 @@ class Repository {
 
     fun setCurrentUser(user:FirebaseUser){
         currentUser=user
-        userNickName=currentUser.email!!.substringBefore("@")
+        userNickName= currentUser!!.email!!.substringBefore("@")
         userRef=database.child("Users").child(userNickName)
-        Log.d("RRR",currentUser.email.toString())
+        Log.d("RRR", currentUser!!.email.toString())
     }
 
     fun getCurrentUserName(): String {
-        return currentUser.email!!.substringBefore("@")
+        if(currentUser!=null) {
+            return currentUser!!.email!!.substringBefore("@")
+        }
+        return "гость"
     }
     fun createUser(newUser: FirebaseUser?) {
         Firebase.database.getReference("TESTAUTH").setValue(1234)
@@ -224,7 +225,7 @@ class Repository {
 
     //Функционал ПОДПИСОК
     fun addSubscribers(subName:String){
-        Firebase.database.getReference("Users/$userNickName/Subs/${getGenerateId()}").setValue(subName)
+        Firebase.database.getReference("Users/$userNickName/Subs/${subName}").setValue(subName)
     }
 
     fun getMySubs(){
@@ -232,7 +233,7 @@ class Repository {
         userRef.child("Subs").get().addOnSuccessListener {
             for(nameSubs in it.children){
                 val nameSub=nameSubs.getValue(String::class.java)
-                mySubsNameString.add(0,nameSub!!)
+                mySubsNameString.add(nameSub!!)
                 mySubsLiveData.postValue(mySubsNameString)
             }
         }
@@ -276,6 +277,10 @@ class Repository {
         return myRecomendLive
     }
 
+
+    fun unsubUser(userNickname: String){
+        Firebase.database.getReference("Users/$userNickName/Subs/${userNickname}").removeValue()
+    }
 
 
 }

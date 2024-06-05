@@ -80,6 +80,7 @@ class LoginFragment : Fragment() {
 
 
         mBinding.singInAsGuest.setOnClickListener {
+            viewModel.setCurrentUser(null)
             findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
         }
     }

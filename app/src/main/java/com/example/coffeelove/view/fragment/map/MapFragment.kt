@@ -75,6 +75,9 @@ class MapFragment : Fragment(),CameraListener {
         _binding=FragmentMapBinding.inflate(inflater,container, false)
         //Перенести вызов в сплеш
         viewModel.addBackGroundUppLoad()
+        viewModel.getMySubs()
+        viewModel.getMyPostFromBase()
+        viewModel.downLoadFavorite()
         MapKitFactory.initialize(requireContext())
         mapView=mBinding.mapView
 
